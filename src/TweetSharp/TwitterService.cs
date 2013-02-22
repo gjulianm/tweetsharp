@@ -275,6 +275,26 @@ namespace TweetSharp
 
         internal string FormatAsString { get; private set; }
 
+        private bool IsKeyAlreadySet(List<object> segments, string key)
+        {
+            bool isSet = false;
+            for (int i = 1; i < segments.Count; i++)
+            {
+                if (i % 2 == 1 && segments[i] is string)
+                {
+                    var segment = ((string)segments[i]).Trim(new[] { '&', '=', '?' }) ;
+
+                    if (segment.Contains(key)) 
+                    {
+                        isSet = true;
+                        break;
+                    }
+                }
+            }
+
+            return isSet;
+        }
+
         private string ResolveUrlSegments(string path, List<object> segments)
         {
             if (segments == null) throw new ArgumentNullException("segments");
@@ -345,12 +365,12 @@ namespace TweetSharp
 
             PathHelpers.EscapeDataContainingUrlSegments(segments);
 
-            if(IncludeEntities)
+            if(IncludeEntities && !IsKeyAlreadySet(segments, "include_entities"))
             {
                 segments.Add(segments.Count() > 1 ? "&include_entities=" : "?include_entities=");
                 segments.Add("1");
             }
-            if (IncludeRetweets)
+            if (IncludeRetweets && !IsKeyAlreadySet(segments, "include_rts"))
             {
                 segments.Add(segments.Count() > 1 ? "&include_rts=" : "?include_rts=");
                 segments.Add("1");
