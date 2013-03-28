@@ -36,6 +36,7 @@ namespace TweetSharp
         private TwitterEntities _entities;
         private bool? _isPossiblySensitive;
         private TwitterPlace _place;
+        private int _retweetCount;
 
         public virtual string AuthorName
         {
