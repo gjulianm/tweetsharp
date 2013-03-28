@@ -4,6 +4,7 @@ using System.Compat.Web;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -104,7 +105,7 @@ namespace TweetSharp.Tests.Service
             var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
             Assert.IsNotNull(tweets);
-            Assert.IsTrue(tweets.Count() > 0);
+            Assert.IsTrue(tweets.Any());
 
             foreach (var tweet in tweets)
             {
@@ -138,7 +139,10 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(mentions);
             Assert.IsTrue(mentions.Count() <= 20);
 
-            Assert.IsNotNull(service.Response.RateLimitStatus);
+            var rate = service.Response.RateLimitStatus;
+            Assert.IsNotNull(rate);
+            Console.WriteLine("You have " + rate.RemainingHits + " left out of " + rate.HourlyLimit);
+
             foreach (var dm in mentions)
             {
                 Console.WriteLine("{0} said '{1}'", dm.User.ScreenName, dm.Text);
@@ -309,6 +313,24 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        [Ignore("Makes a live status update")]
+        public void Can_tweet_with_image()
+        {
+            var service = GetAuthenticatedService();
+            using (var stream = new FileStream("daniel_8bit.png", FileMode.Open))
+            {
+                var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
+                    {
+                        Status = "Can_tweet_with_image:Tweet",
+                        Images = new Dictionary<string, Stream> {{"test", stream}}
+                    });
+                Assert.IsNotNull(tweet);
+                Assert.AreNotEqual(0, tweet.Id);
+            }
+            
+        }
+
+        [Test]
         public void Can_get_followers_on_first_page()
         {
             var service = GetAuthenticatedService();
@@ -416,7 +438,7 @@ namespace TweetSharp.Tests.Service
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
             // Twitter 403's on duplicate saved search requests, so delete if found
-            var searches = service.ListSavedSearches(new ListSavedSearchesOptions());
+            var searches = service.ListSavedSearches();
             Assert.IsNotNull(searches);
 
             var existing = searches.SingleOrDefault(s => s.Query.Equals("tweetsharp"));
@@ -445,6 +467,25 @@ namespace TweetSharp.Tests.Service
             foreach(var tweet in results.Statuses)
             {
                 Console.WriteLine("{0} says '{1}", tweet.User.ScreenName, tweet.Text);
+            }
+        }
+
+        [Test]
+        public void Searches_with_explicit_include_options_still_work()
+        {
+            var service = GetAuthenticatedService();
+            var results = service.Search(new SearchOptions
+            {
+                Count = 500,
+                Resulttype = TwitterSearchResultType.Mixed,
+                IncludeEntities = false,
+                Q = "stackoverflow"
+            });
+
+            Assert.IsNotNull(results);
+            foreach (var result in results.Statuses)
+            {
+                Console.WriteLine(result.Text);
             }
         }
 
@@ -787,7 +828,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_available_local_trend_locations()
         {
             var service = GetAuthenticatedService();
-            var locations = service.ListAvailableTrendsLocations(new ListAvailableTrendsLocationsOptions());
+            var locations = service.ListAvailableTrendsLocations();
             Assert.IsNotNull(locations);
 
             foreach(var location in locations)
@@ -953,6 +994,40 @@ namespace TweetSharp.Tests.Service
                 count += followers.Count;
             }     
             Assert.AreEqual(me.FollowersCount, count);
+        }
+
+        [Test]
+        public void Can_list_tweets_on_list()
+        {
+            var service = GetAuthenticatedService();
+            var result = service.BeginListTweetsOnList(new ListTweetsOnListOptions
+            {
+                OwnerScreenName = "Joesebok",
+                Slug = "poker",
+                IncludeRts = true,
+                SinceId = 308773934705299458
+            });
+            var tweets = service.EndListTweetsOnList(result);
+            Assert.IsNotNull(tweets);
+            
+            foreach (var tweet in tweets)
+            {
+                Console.WriteLine(tweet.Id);
+            }
+        }
+
+        [Test]
+        public void Can_get_rate_limit_status_summary()
+        {
+            var service = GetAuthenticatedService();
+            var summary = service.GetRateLimitStatus(new GetRateLimitStatusOptions());
+            Assert.IsNotNull(summary);
+            Assert.IsNotNullOrEmpty(summary.AccessToken);
+
+
+
+            Console.WriteLine(service.Response.Response);
+
         }
     }
 }

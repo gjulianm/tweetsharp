@@ -102,6 +102,19 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        public void Can_parse_hashtag_search_url()
+        {
+            var service = GetAuthenticatedService();
+
+            //https://twitter.com/PurinaONE/status/306126169743450112
+            var tweet = service.GetTweet(new GetTweetOptions() {Id = 306126169743450112});
+
+            Assert.IsNotNull(tweet);
+            Assert.IsNotNull(tweet.TextAsHtml);
+            Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=%23Ingredientsforgood"));
+        }
+
+        [Test]
         public void Can_search_geo_by_ip()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -227,7 +240,7 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var account = service.GetAccountSettings(new GetAccountSettingsOptions());
+            var account = service.GetAccountSettings();
             Console.WriteLine(account.RawSource);
 
             Assert.AreEqual(false, account.IsProtected, "IsProtected");
@@ -254,7 +267,7 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            TwitterAccount original = service.GetAccountSettings(new GetAccountSettingsOptions());
+            TwitterAccount original = service.GetAccountSettings();
             var state = !original.SleepTime.Enabled.Value;
 
             Trace.WriteLine("Sleep state was " + original.SleepTime.Enabled);

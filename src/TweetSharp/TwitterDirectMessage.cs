@@ -261,16 +261,12 @@ namespace TweetSharp
         {
             get
             {
-                if (string.IsNullOrEmpty(Text))
-                {
-                    return Text;
-                }
-                return _textAsHtml ?? (_textAsHtml = Text.ParseTwitterageToHtml());
+                return (_textAsHtml ?? (_textAsHtml = this.ParseTextWithEntities()));
             }
             set
             {
-                _entities = null;
                 _textAsHtml = value;
+                OnPropertyChanged("TextAsHtml");
             }
         }
 
@@ -410,10 +406,6 @@ namespace TweetSharp
         }
 
 #if !Smartphone && !NET20
-        /// <summary>
-        /// The source content used to deserialize the model entity instance.
-        /// Can be XML or JSON, depending on the endpoint used.
-        /// </summary>
         [DataMember]
 #endif
         public virtual string RawSource { get; set; }

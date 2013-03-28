@@ -275,26 +275,6 @@ namespace TweetSharp
 
         internal string FormatAsString { get; private set; }
 
-        private bool IsKeyAlreadySet(List<object> segments, string key)
-        {
-            bool isSet = false;
-            for (int i = 1; i < segments.Count; i++)
-            {
-                if (i % 2 == 1 && segments[i] is string)
-                {
-                    var segment = ((string)segments[i]).Trim(new[] { '&', '=', '?' }) ;
-
-                    if (segment.Contains(key)) 
-                    {
-                        isSet = true;
-                        break;
-                    }
-                }
-            }
-
-            return isSet;
-        }
-
         private string ResolveUrlSegments(string path, List<object> segments)
         {
             if (segments == null) throw new ArgumentNullException("segments");
@@ -365,20 +345,36 @@ namespace TweetSharp
 
             PathHelpers.EscapeDataContainingUrlSegments(segments);
 
-            if(IncludeEntities && !IsKeyAlreadySet(segments, "include_entities"))
+            const string includeEntities = "include_entities";
+            const string includeRetweets = "include_rts";
+
+            if (IncludeEntities && !IsKeyAlreadySet(segments, includeEntities))
             {
-                segments.Add(segments.Count() > 1 ? "&include_entities=" : "?include_entities=");
+                segments.Add(segments.Count() > 1 ? "&" + includeEntities + "=" : "?" + includeEntities + "=");
                 segments.Add("1");
             }
-            if (IncludeRetweets && !IsKeyAlreadySet(segments, "include_rts"))
+            if (IncludeRetweets && !IsKeyAlreadySet(segments, includeRetweets))
             {
-                segments.Add(segments.Count() > 1 ? "&include_rts=" : "?include_rts=");
+                segments.Add(segments.Count() > 1 ? "&" + includeRetweets + "=" : "?" + includeRetweets + "=");
                 segments.Add("1");
             }
 
             segments.Insert(0, path);
 
             return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+        }
+
+        private static bool IsKeyAlreadySet(IList<object> segments, string key)
+        {
+            for (var i = 1; i < segments.Count; i++)
+            {
+                if (i % 2 != 1 || !(segments[i] is string)) continue;
+                var segment = ((string)segments[i]).Trim(new[] { '&', '=', '?' });
+
+                if (!segment.Contains(key)) continue;
+                return true;
+            }
+            return false;
         }
 
         private static void ResolveEnumerableUrlSegments(IList<object> segments, int i)
@@ -450,6 +446,20 @@ namespace TweetSharp
             return result;
         }
 
+        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]", file.Key, file.Value);
+            }
+            var result = _client.BeginRequest<T>(request);
+            return result;
+        }
+
         private T EndWithHammock<T>(IAsyncResult result)
         {
             var response = _client.EndRequest<T>(result);
@@ -483,6 +493,19 @@ namespace TweetSharp
             var request = PrepareHammockQuery(path);
             request.Method = method;
 
+            return WithHammockImpl<T>(request);
+        }
+
+        private T WithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]",file.Key, file.Value);
+            }
             return WithHammockImpl<T>(request);
         }
 

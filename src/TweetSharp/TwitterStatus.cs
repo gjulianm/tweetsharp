@@ -235,6 +235,28 @@ namespace TweetSharp
             }
         }
 
+        [JsonProperty("retweet_count")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual int RetweetCount
+        {
+            get
+            {
+                return _retweetCount;
+            }
+            set
+            {
+                if (_retweetCount == value)
+                {
+                    return;
+                }
+
+                _retweetCount = value;
+                OnPropertyChanged("RetweetCount");
+            }
+        }
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif
@@ -252,6 +274,20 @@ namespace TweetSharp
                 _textAsHtml = null;
                 _textDecoded = null;
                 OnPropertyChanged("Text");
+            }
+        }
+
+        private string _textAsHtml;
+        public virtual string TextAsHtml
+        {
+            get
+            {
+                return (_textAsHtml ?? (_textAsHtml = this.ParseTextWithEntities()));
+            }
+            set
+            {
+                _textAsHtml = value;
+                this.OnPropertyChanged("TextAsHtml");
             }
         }
 
@@ -276,25 +312,6 @@ namespace TweetSharp
             {
                 _textDecoded = value;
                 OnPropertyChanged("TextDecoded");
-            }
-        }
-
-        private string _textAsHtml;
-        [Obsolete("For most cases you want to use Entitites to find elements you can turn into HTML. This method does not know about entities.")]
-        public virtual string TextAsHtml
-        {
-            get
-            {
-                if(string.IsNullOrEmpty(Text))
-                {
-                    return Text;
-                }
-                return _textAsHtml ?? (_textAsHtml = Text.ParseTwitterageToHtml());
-            }
-            set
-            {
-                _textAsHtml = value;
-                OnPropertyChanged("TextAsHtml");
             }
         }
 
