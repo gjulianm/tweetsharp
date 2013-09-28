@@ -19,7 +19,7 @@ namespace TweetSharp
             _exception = exception;
             _response = response;
 
-            Headers = new NameValueCollection();
+            Headers = new Dictionary<string, string>();
 
             foreach (var header in response.Headers)
                 Headers.Add(header.Key, header.Value);
@@ -49,9 +49,9 @@ namespace TweetSharp
             X-Rate-Limit-Reset: 1360991702
             */
 
-            var limit = Headers["X-Rate-Limit-Limit"];
-            var remaining = Headers["X-Rate-Limit-Remaining"];
-            var reset = Headers["X-Rate-Limit-Reset"];
+            string limit = Headers["X-Rate-Limit-Limit"];
+            string remaining = Headers["X-Rate-Limit-Remaining"];
+            string reset = Headers["X-Rate-Limit-Reset"];
 
             limit = IsStringANumber(!string.IsNullOrEmpty(limit) ? limit.Trim() : "-1") ? limit : "-1";
             remaining = IsStringANumber(!string.IsNullOrEmpty(remaining) ? remaining.Trim() : "-1") ? remaining : "-1";
@@ -68,12 +68,13 @@ namespace TweetSharp
                        : null;
         }
 
-        private static bool IsStringANumber(IEnumerable<char> limit)
+        private static bool IsStringANumber(string limit)
         {
-            return limit.All(char.IsNumber);
+            long aux;
+            return long.TryParse(limit, out aux);
         }
         public virtual TwitterError Error { get; set; }
-        public virtual NameValueCollection Headers { get; set; }
+        public virtual Dictionary<string, string> Headers { get; set; }
 
         public virtual HttpStatusCode StatusCode
         {
