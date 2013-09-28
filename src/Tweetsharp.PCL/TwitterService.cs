@@ -1,13 +1,14 @@
-﻿using System;
+﻿using AsyncOAuth;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
-using Tweetsharp.PCL;
+using System.Threading.Tasks;
 
 
 namespace TweetSharp
@@ -18,16 +19,20 @@ namespace TweetSharp
     /// <seealso href="http://dev.twitter.com/doc" />
     public partial class TwitterService
     {
-        private readonly HttpClient _client;
+        private HttpClient _noAuthClient = new HttpClient();
+        private HttpClient _authClient;
+
+        private HttpClient _client
+        {
+            get
+            {
+                return _authClient ?? _noAuthClient;
+            }
+        }
 
         public bool TraceEnabled { get; set; }
         public bool IncludeEntities { get; set; }
         public bool IncludeRetweets { get; set; }
-
-
-        public IDeserializer Deserializer { get; set; }
-
-        public ISerializer Serializer { get; set; }
 
         private string _consumerKey;
         private string _consumerSecret;
@@ -65,13 +70,36 @@ namespace TweetSharp
             _consumerSecret = consumerSecret;
             _token = token;
             _tokenSecret = tokenSecret;
+
+            CreateAuthenticatedClient();
+        }
+
+        public void AuthenticateWith(string token, string secret)
+        {
+            _token = token;
+            _tokenSecret = secret;
+
+            CreateAuthenticatedClient();
+        }
+
+        public void AuthenticateWith(string consumerKey, string consumerSecret, string token, string tokenSecret)
+        {
+            _consumerKey = consumerKey;
+            _consumerSecret = consumerSecret;
+            _token = token;
+            _tokenSecret = tokenSecret;
+
+            CreateAuthenticatedClient();
+        }
+
+        private void CreateAuthenticatedClient()
+        {
+            _authClient = OAuthUtility.CreateOAuthClient(_consumerKey, _consumerSecret, new AccessToken(_token, _tokenSecret));
         }
 
         public TwitterService()
         {
             FormatAsString = ".json";
-
-            _client = new HttpClient();
 
             InitializeService();
         }
@@ -129,9 +157,7 @@ namespace TweetSharp
 
         public T Deserialize<T>(string content)
         {
-            var response = new RestResponse<T> { StatusCode = HttpStatusCode.OK };
-            response.SetContent(content);
-            return Deserializer.Deserialize<T>(response);
+            return JsonConvert.DeserializeObject<T>(content);
         }
 
         internal string FormatAsString { get; private set; }
@@ -222,7 +248,7 @@ namespace TweetSharp
 
             segments.Insert(0, path);
 
-            return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+            return string.Concat(segments.ToArray()).ToString();
         }
 
         private static bool IsKeyAlreadySet(IList<object> segments, string key)
@@ -257,190 +283,53 @@ namespace TweetSharp
             segments[i] = sb.ToString();
         }
 
-#if !WINDOWS_PHONE
-        private IAsyncResult WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
+        private async Task<TwitterResponse<T>> ExecuteRequest<T>(string path)
         {
             var request = PrepareQuery(path);
 
-            return WithHammockImpl(request, action);
+            return await ExecuteRequestImpl<T>(request);
         }
 
-        private IAsyncResult WithHammock<T>(Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
+        private async Task<TwitterResponse<T>> ExecuteRequest<T>(string path, params object[] segments)
         {
-            return WithHammock(action, ResolveUrlSegments(path, segments.ToList()));
+            var url = ResolveUrlSegments(path, segments.ToList());
+            return await ExecuteRequest<T>(url);
         }
 
-        private IAsyncResult WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
+        private async Task<TwitterResponse<T>> ExecuteRequest<T>(HttpMethod method, string path)
         {
-            var request = PrepareQuery(path);
-            request.Method = method;
-
-            return WithHammockImpl(request, action);
-        }
-
-        private IAsyncResult WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
-        {
-            return WithHammock(method, action, ResolveUrlSegments(path, segments.ToList()));
-        }
-
-        private IAsyncResult WithHammockImpl<T>(RestRequest request, Action<T, TwitterResponse> action) where T : class
-        {
-            return _client.BeginRequest(
-                request, new RestCallback<T>((req, response, state) =>
-                {
-                    if (response == null)
-                    {
-                        return;
-                    }
-                    SetResponse(response);
-                    var entity = response.ContentEntity;
-                    action.Invoke(entity, new TwitterResponse(response));
-                }));
-        }
-
-        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, params object[] segments)
-        {
-            path = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareQuery(path);
             request.Method = method;
-            var result = _client.BeginRequest<T>(request);
-            return result;
+
+            return await ExecuteRequestImpl<T>(request);
         }
 
-        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
+        private async Task<TwitterResponse<T>> ExecuteRequest<T>(HttpMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareQuery(url);
             request.Method = method;
-            request.QueryHandling = QueryHandling.AppendToParameters;
-            foreach (var file in files)
-            {
-                request.AddFile("media[]", file.Key, file.Value);
-            }
-            var result = _client.BeginRequest<T>(request);
-            return result;
+
+            // TODO: File uploads.
+
+            return await ExecuteRequestImpl<T>(request);
         }
 
-        private T EndWithHammock<T>(IAsyncResult result)
-        {
-            var response = _client.EndRequest<T>(result);
-            SetResponse(response);
-            return response.ContentEntity;
-        }
 
-        private T EndWithHammock<T>(IAsyncResult result, TimeSpan timeout)
-        {
-            var response = _client.EndRequest<T>(result, timeout);
-            return response.ContentEntity;
-        }
-#endif
 
-#if !SILVERLIGHT
-        private T WithHammock<T>(string path)
-        {
-            var request = PrepareQuery(path);
-
-            return WithHammockImpl<T>(request);
-        }
-
-        private T WithHammock<T>(string path, params object[] segments)
-        {
-            var url = ResolveUrlSegments(path, segments.ToList());
-            return WithHammock<T>(url);
-        }
-
-        private T WithHammock<T>(WebMethod method, string path)
-        {
-            var request = PrepareQuery(path);
-            request.Method = method;
-
-            return WithHammockImpl<T>(request);
-        }
-
-        private T WithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
-        {
-            var url = ResolveUrlSegments(path, segments.ToList());
-            var request = PrepareQuery(url);
-            request.Method = method;
-            request.QueryHandling = QueryHandling.AppendToParameters;
-            foreach (var file in files)
-            {
-                request.AddFile("media[]", file.Key, file.Value);
-            }
-            return WithHammockImpl<T>(request);
-        }
-
-        private T WithHammock<T>(WebMethod method, string path, params object[] segments)
+        private async Task<TwitterResponse<T>> ExecuteRequest<T>(HttpMethod method, string path, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
 
-            return WithHammock<T>(method, url);
+            return await ExecuteRequest<T>(method, url);
         }
 
-        private T WithHammockImpl<T>(RestRequest request)
+        private async Task<TwitterResponse<T>> ExecuteRequestImpl<T>(HttpRequestMessage request)
         {
-            var response = _client.Request<T>(request);
+            var response = await _client.SendAsync(request);
 
-            SetResponse(response);
-
-            var entity = response.ContentEntity;
-            return entity;
+            return new TwitterResponse<T>(response);
         }
-#endif
-
-#if WINDOWS_PHONE
-        private void WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
-        {
-            var request = PrepareHammockQuery(path);
-            
-            WithHammockImpl(request, action);
-        }
-        
-        private void WithHammock<T>(Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
-        {
-            WithHammock(action, ResolveUrlSegments(path, segments.ToList()));
-        }
-
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
-        {
-            var request = PrepareHammockQuery(path);
-            request.Method = method;
-
-            WithHammockImpl(request, action);
-        }
-
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
-        {
-            WithHammock(method, action, ResolveUrlSegments(path, segments.ToList()));
-        }
-
-        private void WithHammockImpl<T>(RestRequest request, Action<T, TwitterResponse> action) where T : class
-        {
-            _client.BeginRequest(
-                request, new RestCallback<T>((req, response, state) =>
-                {
-                    if (response == null)
-                    {
-                        return;
-                    }
-                    var entity = response.ContentEntity;
-                    action.Invoke(entity, new TwitterResponse(response));
-                }));
-        }
-
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, IDictionary<string, Stream> files, params object[] segments) where T : class
-        {
-            var url = ResolveUrlSegments(path, segments.ToList());
-            var request = PrepareHammockQuery(url);
-            request.Method = method;
-            request.QueryHandling = QueryHandling.AppendToParameters;
-            foreach (var file in files)
-            {
-                request.AddFile("media[]", file.Key, file.Value);
-            }
-            WithHammockImpl(request, action);
-        }
-#endif
 
         private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
         {
