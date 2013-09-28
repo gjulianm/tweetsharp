@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -109,7 +110,7 @@ namespace TweetSharp
             Version = "1.1/";
 
             _noAuthClient.BaseAddress = new Uri(Authority + Version, UriKind.Absolute);
-
+            OAuthUtility.ComputeHash = (key, buffer) => { using (var hmac = new HMACSHA1(key)) { return hmac.ComputeHash(buffer); } };
             InitializeService();
         }
 
