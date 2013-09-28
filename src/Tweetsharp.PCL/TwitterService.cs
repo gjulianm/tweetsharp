@@ -34,6 +34,9 @@ namespace TweetSharp
         public bool IncludeEntities { get; set; }
         public bool IncludeRetweets { get; set; }
 
+        public string Authority { get; set; }
+        public string Version { get; set; }
+
         private string _consumerKey;
         private string _consumerSecret;
         private string _token;
@@ -95,11 +98,17 @@ namespace TweetSharp
         private void CreateAuthenticatedClient()
         {
             _authClient = OAuthUtility.CreateOAuthClient(_consumerKey, _consumerSecret, new AccessToken(_token, _tokenSecret));
+            _authClient.BaseAddress = new Uri(Authority + Version, UriKind.Absolute);
         }
 
         public TwitterService()
         {
             FormatAsString = ".json";
+
+            Authority = "https://api.twitter.com/";
+            Version = "1.1/";
+
+            _noAuthClient.BaseAddress = new Uri(Authority + Version, UriKind.Absolute);
 
             InitializeService();
         }
@@ -122,7 +131,7 @@ namespace TweetSharp
         private HttpRequestMessage PrepareQuery(string path)
         {
             HttpRequestMessage request = new HttpRequestMessage();
-            request.RequestUri = new Uri(path, UriKind.Absolute);
+            request.RequestUri = new Uri(path, UriKind.Relative);
 
             SetTwitterClientInfo(request);
 
