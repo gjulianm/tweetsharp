@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Tweetsharp;
-using Hammock.Tasks;
 using Newtonsoft.Json;
 
 namespace TweetSharp
@@ -13,13 +12,13 @@ namespace TweetSharp
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterRateLimitStatusSummary 
+    public class TwitterRateLimitStatusSummary
     {
 #if !Smartphone && !NET20
         [DataMember]
 #endif
         public virtual string AccessToken { get; set; }
-        
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif
@@ -49,7 +48,7 @@ namespace TweetSharp
         public virtual Dictionary<string, TwitterRateLimitStatus> Limits { get; set; }
     }
 
-    
+
 
 #if !Smartphone && !NET20
     [DataContract]
@@ -60,7 +59,6 @@ namespace TweetSharp
         PropertyChangedBase,
         IComparable<TwitterRateLimitStatus>,
         IEquatable<TwitterRateLimitStatus>,
-        IRateLimitStatus,
         ITwitterModel
     {
         private int _remainingHits;
@@ -194,8 +192,8 @@ namespace TweetSharp
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof (TwitterRateLimitStatus) &&
-                   Equals((TwitterRateLimitStatus) obj);
+            return obj.GetType() == typeof(TwitterRateLimitStatus) &&
+                   Equals((TwitterRateLimitStatus)obj);
         }
 
         /// <summary>
@@ -209,9 +207,9 @@ namespace TweetSharp
             unchecked
             {
                 var result = _remainingHits;
-                result = (result*397) ^ _hourlyLimit;
-                result = (result*397) ^ _resetTimeInSeconds.GetHashCode();
-                result = (result*397) ^ _resetTime.GetHashCode();
+                result = (result * 397) ^ _hourlyLimit;
+                result = (result * 397) ^ _resetTimeInSeconds.GetHashCode();
+                result = (result * 397) ^ _resetTime.GetHashCode();
                 return result;
             }
         }
@@ -252,7 +250,7 @@ namespace TweetSharp
         /// Gets the next reset time.
         /// </summary>
         /// <value>The next reset time.</value>
-        DateTime IRateLimitStatus.NextReset
+        DateTime NextReset
         {
             get { return ResetTime; }
         }
@@ -261,7 +259,7 @@ namespace TweetSharp
         /// Gets the remaining API uses.
         /// </summary>
         /// <value>The remaining API uses.</value>
-        int IRateLimitStatus.RemainingUses
+        int RemainingUses
         {
             get { return RemainingHits; }
         }

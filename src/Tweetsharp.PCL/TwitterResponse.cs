@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Collections.Specialized;
 using System.Net.Http;
-using Tweetsharp.PCL;
 
 namespace TweetSharp
 {
-    public class TwitterResponse<T> where T : class
+    public class TwitterResponse<T>
     {
         private readonly HttpResponseMessage _response;
         private readonly Exception _exception;
@@ -22,7 +20,7 @@ namespace TweetSharp
             Headers = new Dictionary<string, string>();
 
             foreach (var header in response.Headers)
-                Headers.Add(header.Key, header.Value);
+                Headers.Add(header.Key, header.Value.Aggregate("", (acc, x) => acc + x));
 
             var stringReadTask = _response.Content.ReadAsStringAsync();
             stringReadTask.Wait();

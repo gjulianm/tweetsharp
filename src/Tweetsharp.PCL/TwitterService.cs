@@ -1,5 +1,4 @@
 ﻿using AsyncOAuth;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -171,7 +170,7 @@ namespace TweetSharp
 
         public T Deserialize<T>(string content)
         {
-            return JsonConvert.DeserializeObject<T>(content);
+            return _serializer.Deserialize<T>(content);
         }
 
         internal string FormatAsString { get; private set; }

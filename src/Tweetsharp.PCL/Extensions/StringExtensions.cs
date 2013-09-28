@@ -92,13 +92,13 @@ namespace TweetSharp
             foreach (Match match in ParseUrls.Matches(input))
             {
                 var value = match.Value;
-                
+
                 Uri uri;
                 try
                 {
                     uri = new Uri(value);
                 }
-                catch (UriFormatException)
+                catch (Exception)
                 {
                     continue;
                 }
@@ -106,14 +106,14 @@ namespace TweetSharp
                 var url = new TwitterUrl
                               {
                                   Value = uri.ToString(),
-                                  Indices = new List<int>(new[] { match.Index, match.Index + match.Value.Length }) 
+                                  Indices = new List<int>(new[] { match.Index, match.Index + match.Value.Length })
                               };
 
-                if(!match.Value.EndsWith("/") && url.Value.EndsWith("/"))
+                if (!match.Value.EndsWith("/") && url.Value.EndsWith("/"))
                 {
                     url.Value = url.Value.Substring(0, url.Value.Length - 1);
                 }
-                
+
                 yield return url;
             }
         }
@@ -137,7 +137,7 @@ namespace TweetSharp
                 var mention = new TwitterMention
                                   {
                                       ScreenName = screenName,
-                                      Indices = new[] {startIndex, startIndex + screenName.Length + 1}
+                                      Indices = new[] { startIndex, startIndex + screenName.Length + 1 }
                                   };
 
                 yield return mention;
@@ -156,7 +156,7 @@ namespace TweetSharp
                 var hashtag = new TwitterHashTag
                                   {
                                       Text = match.Value.Substring(1),
-                                      Indices = new[] {match.Index, match.Index + match.Value.Length}
+                                      Indices = new[] { match.Index, match.Index + match.Value.Length }
                                   };
 
                 yield return hashtag;
@@ -184,8 +184,8 @@ namespace TweetSharp
                 string value;
                 if (mention != null)
                 {
-                   value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/{0}\" target=\"_blank\">@{0}</a>", new object[] { mention.ScreenName });
-                   list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
+                    value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/{0}\" target=\"_blank\">@{0}</a>", new object[] { mention.ScreenName });
+                    list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
                 }
                 var tag = entity as TwitterHashTag;
                 if (tag != null)
