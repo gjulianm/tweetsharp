@@ -1,8 +1,9 @@
+using Newtonsoft.Json;
+using PCLWebUtility;
 using System;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Tweetsharp;
-using Newtonsoft.Json;
 
 namespace TweetSharp
 {
@@ -15,7 +16,7 @@ namespace TweetSharp
     public class TwitterStatus : PropertyChangedBase,
                                  IComparable<TwitterStatus>,
                                  IEquatable<TwitterStatus>,
-                                 ITwitterModel, 
+                                 ITwitterModel,
                                  ITweetable
     {
         private DateTime _createdDate;
@@ -231,13 +232,8 @@ namespace TweetSharp
                 {
                     return Text;
                 }
-#if !SILVERLIGHT && !WINDOWS_PHONE
-                return _textDecoded ?? (_textDecoded = System.Compat.Web.HttpUtility.HtmlDecode(Text));
-#elif WINDOWS_PHONE
-                return _textDecoded ?? (_textDecoded = System.Net.HttpUtility.HtmlDecode(Text));
-#else
-                return _textDecoded ?? (_textDecoded = System.Windows.Browser.HttpUtility.HtmlDecode(Text));
-#endif
+
+                return _textDecoded ?? (_textDecoded = WebUtility.HtmlDecode(Text));
             }
             set
             {
@@ -459,7 +455,7 @@ namespace TweetSharp
             {
                 return true;
             }
-            return status.GetType() == typeof (TwitterStatus) && Equals((TwitterStatus) status);
+            return status.GetType() == typeof(TwitterStatus) && Equals((TwitterStatus)status);
         }
 
         public override int GetHashCode()
@@ -471,7 +467,7 @@ namespace TweetSharp
         {
             return Equals(left, right);
         }
-        
+
         public static bool operator !=(TwitterStatus left, TwitterStatus right)
         {
             return !Equals(left, right);
