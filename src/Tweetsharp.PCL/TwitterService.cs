@@ -340,8 +340,18 @@ namespace TweetSharp
 
         private async Task<TwitterResponse<T>> ExecuteRequestImpl<T>(HttpRequestMessage request)
         {
-            var response = await _client.SendAsync(request);
-
+            HttpResponseMessage response = null;
+            try
+            {
+                var responseTask = _client.SendAsync(request);
+                await responseTask;
+                response = responseTask.Result;
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
+            
             var twitterResponse = new TwitterResponse<T>(response);
 
             if (response.IsSuccessStatusCode)

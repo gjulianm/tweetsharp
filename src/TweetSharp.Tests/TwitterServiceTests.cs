@@ -144,7 +144,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet()
         {
             var service = GetAuthenticatedService();
@@ -158,7 +158,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet_with_geo()
         {
             // status=123&lat=56.95&%40long=24.1&include_entities=1
@@ -172,7 +172,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_direct_message()
         {
             var service = GetAuthenticatedService();
@@ -185,7 +185,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_direct_message_with_url_without_double_entities()
         {
             var service = GetAuthenticatedService();
@@ -207,7 +207,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_direct_message_with_screen_name()
         {
             var service = GetAuthenticatedService();
@@ -226,7 +226,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_direct_message_with_a_url()
         {
             var service = GetAuthenticatedService();
@@ -240,12 +240,12 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet_with_special_characters()
         {
             var service = GetAuthenticatedService();
 
-            var message = "!@#$%^&*();:-" + DateTime.UtcNow.Ticks;
+            var message = "!&@#$%^*();:-  " + DateTime.UtcNow.Ticks;
             var response = await service.SendTweetAsync(new SendTweetOptions { Status = message });
             var tweet = response.Content;
             Assert.IsNotNull(tweet);
@@ -253,7 +253,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet_with_location_custom_type()
         {
             var service = GetAuthenticatedService();
@@ -269,7 +269,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet_and_handle_dupes()
         {
             var service = GetAuthenticatedService();
@@ -284,7 +284,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live status update")]
+        [Ignore("Makes a live status update")]
         public async void Can_tweet_with_image()
         {
             var service = GetAuthenticatedService();
@@ -400,7 +400,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("URL ok, params OK, request OK, but giving 404 for some reason.")]
         public async void Can_create_and_destroy_saved_search()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -564,7 +563,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live direct message")]
+        [Ignore("Makes a live direct message")]
         public async void Can_send_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };
@@ -581,7 +580,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        //[Ignore("Makes a live direct message")]
+        [Ignore("Makes a live direct message")]
         public async void Can_delete_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };
@@ -847,6 +846,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        [Ignore("Images not ready yet")]
         public async void Can_update_profile_image()
         {
             var service = GetAuthenticatedService();
