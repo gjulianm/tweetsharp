@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using Hammock.Model;
+using Tweetsharp;
 using Newtonsoft.Json;
 using TweetSharp.Model;
 

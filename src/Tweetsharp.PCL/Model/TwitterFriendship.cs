@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using Hammock.Model;
+using Tweetsharp;
 using Newtonsoft.Json;
 
 namespace TweetSharp

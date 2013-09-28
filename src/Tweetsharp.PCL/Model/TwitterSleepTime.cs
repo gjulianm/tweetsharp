@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Hammock.Model;
+using Tweetsharp;
 using Newtonsoft.Json;
 
 namespace TweetSharp
