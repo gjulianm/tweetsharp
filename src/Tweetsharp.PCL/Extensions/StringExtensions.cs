@@ -36,12 +36,7 @@ namespace TweetSharp
             return entities;
         }
 
-        private const RegexOptions Options =
-#if !SILVERLIGHT
- RegexOptions.Compiled | RegexOptions.IgnoreCase;
-#else
-            RegexOptions.IgnoreCase;
-#endif
+        private const RegexOptions Options = RegexOptions.IgnoreCase;
 
         // Jon Gruber's URL Regex: http://daringfireball.net/2009/11/liberal_regex_for_matching_urls
         private static readonly Regex ParseUrls =
