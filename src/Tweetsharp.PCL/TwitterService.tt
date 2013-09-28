@@ -69,8 +69,6 @@ namespace TweetSharp
 <# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
 		Task<TwitterResponse<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);
-
-
 <# } #>
 		#endregion
 	}
@@ -85,7 +83,7 @@ namespace TweetSharp
 		#region Sequential Methods
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual Task<TwitterResponse<<#= method.Type #>>> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
+		public virtual Task<TwitterResponse<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;

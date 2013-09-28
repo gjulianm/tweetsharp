@@ -673,308 +673,156 @@ namespace TweetSharp
 		#region Asynchronous Methods (with TAP pattern)
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsMentioningMeAsync(ListTweetsMentioningMeOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnUserTimelineAsync(ListTweetsOnUserTimelineOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnHomeTimelineAsync(ListTweetsOnHomeTimelineOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListRetweetsOfMyTweetsAsync(ListRetweetsOfMyTweetsOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> RetweetsAsync(RetweetsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> GetTweetAsync(GetTweetOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> DeleteTweetAsync(DeleteTweetOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> SendTweetAsync(SendTweetOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> RetweetAsync(RetweetOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> SendTweetWithMediaAsync(SendTweetWithMediaOptions options);
-
-
         
 		Task<TwitterResponse<TwitterSearchResult>> SearchAsync(SearchOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesReceivedAsync(ListDirectMessagesReceivedOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesSentAsync(ListDirectMessagesSentOptions options);
-
-
         
 		Task<TwitterResponse<TwitterDirectMessage>> GetDirectMessageAsync(GetDirectMessageOptions options);
-
-
         
 		Task<TwitterResponse<TwitterDirectMessage>> DeleteDirectMessageAsync(DeleteDirectMessageOptions options);
-
-
         
 		Task<TwitterResponse<TwitterDirectMessage>> SendDirectMessageAsync(SendDirectMessageOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<long>>> ListFriendIdsOfAsync(ListFriendIdsOfOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<long>>> ListFollowerIdsOfAsync(ListFollowerIdsOfOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterFriendshipLookup>>> ListFriendshipsForAsync(ListFriendshipsForOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<long>>> GetIncomingFriendRequestsAsync(GetIncomingFriendRequestsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<long>>> GetOutgoingFriendRequestsAsync(GetOutgoingFriendRequestsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> FollowUserAsync(FollowUserOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UnfollowUserAsync(UnfollowUserOptions options);
-
-
         
 		Task<TwitterResponse<TwitterFriendship>> UpdateFriendshipAsync(UpdateFriendshipOptions options);
-
-
         
 		Task<TwitterResponse<TwitterFriendship>> GetFriendshipInfoAsync(GetFriendshipInfoOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFriendsAsync(ListFriendsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFollowersAsync(ListFollowersOptions options);
-
-
         
 		Task<TwitterResponse<TwitterAccount>> GetAccountSettingsAsync();
-
-
         
 		Task<TwitterResponse<TwitterUser>> GetUserProfileAsync(GetUserProfileOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> VerifyCredentialsAsync(VerifyCredentialsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterAccount>> UpdateAccountSettingsAsync(UpdateAccountSettingsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UpdateDeliveryDeviceAsync(UpdateDeliveryDeviceOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UpdateProfileAsync(UpdateProfileOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UpdateProfileBackgroundImageAsync(UpdateProfileBackgroundImageOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UpdateProfileColorsAsync(UpdateProfileColorsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UpdateProfileImageAsync(UpdateProfileImageOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListBlockedUsersAsync(ListBlockedUsersOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<long>>> ListBlockedUserIdsAsync(ListBlockedUserIdsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> BlockUserAsync(BlockUserOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UnblockUserAsync(UnblockUserOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterUser>>> ListUserProfilesForAsync(ListUserProfilesForOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> GetUserProfileForAsync(GetUserProfileForOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterUser>>> SearchForUserAsync(SearchForUserOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUserSuggestions>> ListSuggestedUsersAsync(ListSuggestedUsersOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterUserSuggestions>>> ListSuggestedUserCategoriesAsync(ListSuggestedUserCategoriesOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterUser>>> GetSuggestedUserMembersAsync(GetSuggestedUserMembersOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListFavoriteTweetsAsync(ListFavoriteTweetsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> UnfavoriteTweetAsync(UnfavoriteTweetOptions options);
-
-
         
 		Task<TwitterResponse<TwitterStatus>> FavoriteTweetAsync(FavoriteTweetOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterList>>> ListListsForAsync(ListListsForOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnListAsync(ListTweetsOnListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> RemoveListMemberAsync(RemoveListMemberOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListListMembershipsForAsync(ListListMembershipsForOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListSubscribersAsync(ListListSubscribersOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> FollowListAsync(FollowListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> VerifyListSubscriptionAsync(VerifyListSubscriptionOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> UnfollowListAsync(UnfollowListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> VerifyListMembershipAsync(VerifyListMembershipOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListMembersAsync(ListListMembersOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> AddListMemberAsync(AddListMemberOptions options);
-
-
         
 		Task<TwitterResponse<TwitterList>> DeleteListAsync(DeleteListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterList>> CreateListAsync(CreateListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterList>> GetListAsync(GetListOptions options);
-
-
         
 		Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListSubscriptionsAsync(ListSubscriptionsOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterSavedSearch>>> ListSavedSearchesAsync();
-
-
         
 		Task<TwitterResponse<TwitterSavedSearch>> GetSavedSearchAsync(GetSavedSearchOptions options);
-
-
         
 		Task<TwitterResponse<TwitterSavedSearch>> CreateSavedSearchAsync(CreateSavedSearchOptions options);
-
-
         
 		Task<TwitterResponse<TwitterSavedSearch>> DeleteSavedSearchAsync(DeleteSavedSearchOptions options);
-
-
         
 		Task<TwitterResponse<TwitterPlace>> GetPlaceAsync(GetPlaceOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterPlace>>> ReverseGeocodeAsync(ReverseGeocodeOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<TwitterPlace>>> GeoSearchAsync(GeoSearchOptions options);
-
-
         
 		Task<TwitterResponse<TwitterTrends>> ListLocalTrendsForAsync(ListLocalTrendsForOptions options);
-
-
         
 		Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListAvailableTrendsLocationsAsync();
-
-
         
 		Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListClosestTrendsLocationsAsync(ListClosestTrendsLocationsOptions options);
-
-
         
 		Task<TwitterResponse<TwitterRateLimitStatusSummary>> GetRateLimitStatusAsync(GetRateLimitStatusOptions options);
-
-
         
 		Task<TwitterResponse<TwitterUser>> ReportSpamAsync(ReportSpamOptions options);
-
-
 		#endregion
 	}
 #endregion
@@ -987,7 +835,7 @@ namespace TweetSharp
 	{	
 		#region Sequential Methods
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsMentioningMe(ListTweetsMentioningMeOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsMentioningMeAsync(ListTweetsMentioningMeOptions options)
 		{
 			var count = options.Count;
 			var since_id = options.SinceId;
@@ -1001,7 +849,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnUserTimeline(ListTweetsOnUserTimelineOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnUserTimelineAsync(ListTweetsOnUserTimelineOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1018,7 +866,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnHomeTimeline(ListTweetsOnHomeTimelineOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnHomeTimelineAsync(ListTweetsOnHomeTimelineOptions options)
 		{
 			var count = options.Count;
 			var since_id = options.SinceId;
@@ -1033,7 +881,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListRetweetsOfMyTweets(ListRetweetsOfMyTweetsOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListRetweetsOfMyTweetsAsync(ListRetweetsOfMyTweetsOptions options)
 		{
 			var count = options.Count;
 			var since_id = options.SinceId;
@@ -1047,7 +895,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> Retweets(RetweetsOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> RetweetsAsync(RetweetsOptions options)
 		{
 			var id = options.Id;
 			var count = options.Count;
@@ -1058,7 +906,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> GetTweet(GetTweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> GetTweetAsync(GetTweetOptions options)
 		{
 			var id = options.Id;
 			var trim_user = options.TrimUser;
@@ -1070,7 +918,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> DeleteTweet(DeleteTweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> DeleteTweetAsync(DeleteTweetOptions options)
 		{
 			var id = options.Id;
 			var trim_user = options.TrimUser;
@@ -1080,7 +928,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> SendTweet(SendTweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> SendTweetAsync(SendTweetOptions options)
 		{
 			var status = options.Status;
 			var in_reply_to_status_id = options.InReplyToStatusId;
@@ -1095,7 +943,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> Retweet(RetweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> RetweetAsync(RetweetOptions options)
 		{
 			var id = options.Id;
 			var trim_user = options.TrimUser;
@@ -1105,7 +953,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> SendTweetWithMedia(SendTweetWithMediaOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> SendTweetWithMediaAsync(SendTweetWithMediaOptions options)
 		{
 			var status = options.Status;
 			var possibly_sensitive = options.PossiblySensitive;
@@ -1121,7 +969,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterSearchResult>> Search(SearchOptions options)
+		public virtual Task<TwitterResponse<TwitterSearchResult>> SearchAsync(SearchOptions options)
 		{
 			var q = options.Q;
 			var geocode = options.Geocode;
@@ -1139,7 +987,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesReceived(ListDirectMessagesReceivedOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesReceivedAsync(ListDirectMessagesReceivedOptions options)
 		{
 			var since_id = options.SinceId;
 			var max_id = options.MaxId;
@@ -1152,7 +1000,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesSent(ListDirectMessagesSentOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterDirectMessage>>> ListDirectMessagesSentAsync(ListDirectMessagesSentOptions options)
 		{
 			var since_id = options.SinceId;
 			var max_id = options.MaxId;
@@ -1165,7 +1013,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterDirectMessage>> GetDirectMessage(GetDirectMessageOptions options)
+		public virtual Task<TwitterResponse<TwitterDirectMessage>> GetDirectMessageAsync(GetDirectMessageOptions options)
 		{
 			var id = options.Id;
 				
@@ -1174,7 +1022,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterDirectMessage>> DeleteDirectMessage(DeleteDirectMessageOptions options)
+		public virtual Task<TwitterResponse<TwitterDirectMessage>> DeleteDirectMessageAsync(DeleteDirectMessageOptions options)
 		{
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
@@ -1184,7 +1032,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterDirectMessage>> SendDirectMessage(SendDirectMessageOptions options)
+		public virtual Task<TwitterResponse<TwitterDirectMessage>> SendDirectMessageAsync(SendDirectMessageOptions options)
 		{
 			var text = options.Text;
 			var user_id = options.UserId;
@@ -1195,7 +1043,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListFriendIdsOf(ListFriendIdsOfOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListFriendIdsOfAsync(ListFriendIdsOfOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1207,7 +1055,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListFollowerIdsOf(ListFollowerIdsOfOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListFollowerIdsOfAsync(ListFollowerIdsOfOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1219,7 +1067,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterFriendshipLookup>>> ListFriendshipsFor(ListFriendshipsForOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterFriendshipLookup>>> ListFriendshipsForAsync(ListFriendshipsForOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1229,7 +1077,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<long>>> GetIncomingFriendRequests(GetIncomingFriendRequestsOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<long>>> GetIncomingFriendRequestsAsync(GetIncomingFriendRequestsOptions options)
 		{
 			var cursor = options.Cursor;
 				
@@ -1238,7 +1086,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<long>>> GetOutgoingFriendRequests(GetOutgoingFriendRequestsOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<long>>> GetOutgoingFriendRequestsAsync(GetOutgoingFriendRequestsOptions options)
 		{
 			var cursor = options.Cursor;
 				
@@ -1247,7 +1095,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> FollowUser(FollowUserOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> FollowUserAsync(FollowUserOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1258,7 +1106,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UnfollowUser(UnfollowUserOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UnfollowUserAsync(UnfollowUserOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1268,7 +1116,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterFriendship>> UpdateFriendship(UpdateFriendshipOptions options)
+		public virtual Task<TwitterResponse<TwitterFriendship>> UpdateFriendshipAsync(UpdateFriendshipOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1280,7 +1128,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterFriendship>> GetFriendshipInfo(GetFriendshipInfoOptions options)
+		public virtual Task<TwitterResponse<TwitterFriendship>> GetFriendshipInfoAsync(GetFriendshipInfoOptions options)
 		{
 			var source_id = options.SourceId;
 			var source_screen_name = options.SourceScreenName;
@@ -1292,7 +1140,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFriends(ListFriendsOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFriendsAsync(ListFriendsOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1305,7 +1153,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFollowers(ListFollowersOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListFollowersAsync(ListFollowersOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1318,7 +1166,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterAccount>> GetAccountSettings()
+		public virtual Task<TwitterResponse<TwitterAccount>> GetAccountSettingsAsync()
 		{
 				
 			
@@ -1326,7 +1174,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> GetUserProfile(GetUserProfileOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> GetUserProfileAsync(GetUserProfileOptions options)
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
@@ -1336,7 +1184,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> VerifyCredentials(VerifyCredentialsOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> VerifyCredentialsAsync(VerifyCredentialsOptions options)
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
@@ -1346,7 +1194,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterAccount>> UpdateAccountSettings(UpdateAccountSettingsOptions options)
+		public virtual Task<TwitterResponse<TwitterAccount>> UpdateAccountSettingsAsync(UpdateAccountSettingsOptions options)
 		{
 			var trend_location_woeid = options.TrendLocationWoeid;
 			var sleep_time_enabled = options.SleepTimeEnabled;
@@ -1360,7 +1208,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UpdateDeliveryDevice(UpdateDeliveryDeviceOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UpdateDeliveryDeviceAsync(UpdateDeliveryDeviceOptions options)
 		{
 			var device = options.Device;
 			var include_entities = options.IncludeEntities;
@@ -1370,7 +1218,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfile(UpdateProfileOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileAsync(UpdateProfileOptions options)
 		{
 			var name = options.Name;
 			var url = options.Url;
@@ -1384,7 +1232,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileBackgroundImage(UpdateProfileBackgroundImageOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileBackgroundImageAsync(UpdateProfileBackgroundImageOptions options)
 		{
 			var imagePath = options.Imagepath;
 			var tile = options.Tile;
@@ -1397,7 +1245,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileColors(UpdateProfileColorsOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileColorsAsync(UpdateProfileColorsOptions options)
 		{
 			var profile_background_color = options.ProfileBackgroundColor;
 			var profile_link_color = options.ProfileLinkColor;
@@ -1412,7 +1260,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileImage(UpdateProfileImageOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UpdateProfileImageAsync(UpdateProfileImageOptions options)
 		{
 			var image_path = options.ImagePath;
 			var include_entities = options.IncludeEntities;
@@ -1423,7 +1271,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListBlockedUsers(ListBlockedUsersOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListBlockedUsersAsync(ListBlockedUsersOptions options)
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
@@ -1434,7 +1282,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListBlockedUserIds(ListBlockedUserIdsOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<long>>> ListBlockedUserIdsAsync(ListBlockedUserIdsOptions options)
 		{
 			var cursor = options.Cursor;
 				
@@ -1443,7 +1291,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> BlockUser(BlockUserOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> BlockUserAsync(BlockUserOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1455,7 +1303,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UnblockUser(UnblockUserOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UnblockUserAsync(UnblockUserOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1467,7 +1315,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> ListUserProfilesFor(ListUserProfilesForOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> ListUserProfilesForAsync(ListUserProfilesForOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
@@ -1478,7 +1326,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> GetUserProfileFor(GetUserProfileForOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> GetUserProfileForAsync(GetUserProfileForOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1489,7 +1337,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> SearchForUser(SearchForUserOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> SearchForUserAsync(SearchForUserOptions options)
 		{
 			var q = options.Q;
 			var page = options.Page;
@@ -1501,7 +1349,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUserSuggestions>> ListSuggestedUsers(ListSuggestedUsersOptions options)
+		public virtual Task<TwitterResponse<TwitterUserSuggestions>> ListSuggestedUsersAsync(ListSuggestedUsersOptions options)
 		{
 			var slug = options.Slug;
 			var lang = options.Lang;
@@ -1511,7 +1359,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterUserSuggestions>>> ListSuggestedUserCategories(ListSuggestedUserCategoriesOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterUserSuggestions>>> ListSuggestedUserCategoriesAsync(ListSuggestedUserCategoriesOptions options)
 		{
 			var lang = options.Lang;
 				
@@ -1520,7 +1368,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> GetSuggestedUserMembers(GetSuggestedUserMembersOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterUser>>> GetSuggestedUserMembersAsync(GetSuggestedUserMembersOptions options)
 		{
 			var slug = options.Slug;
 				
@@ -1529,7 +1377,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListFavoriteTweets(ListFavoriteTweetsOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListFavoriteTweetsAsync(ListFavoriteTweetsOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1543,7 +1391,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> UnfavoriteTweet(UnfavoriteTweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> UnfavoriteTweetAsync(UnfavoriteTweetOptions options)
 		{
 			var id = options.Id;
 				
@@ -1552,7 +1400,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterStatus>> FavoriteTweet(FavoriteTweetOptions options)
+		public virtual Task<TwitterResponse<TwitterStatus>> FavoriteTweetAsync(FavoriteTweetOptions options)
 		{
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
@@ -1562,7 +1410,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterList>>> ListListsFor(ListListsForOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterList>>> ListListsForAsync(ListListsForOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1572,7 +1420,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnList(ListTweetsOnListOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterStatus>>> ListTweetsOnListAsync(ListTweetsOnListOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1589,7 +1437,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> RemoveListMember(RemoveListMemberOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> RemoveListMemberAsync(RemoveListMemberOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1603,7 +1451,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListListMembershipsFor(ListListMembershipsForOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListListMembershipsForAsync(ListListMembershipsForOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1615,7 +1463,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListSubscribers(ListListSubscribersOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListSubscribersAsync(ListListSubscribersOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1630,7 +1478,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> FollowList(FollowListOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> FollowListAsync(FollowListOptions options)
 		{
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
@@ -1642,7 +1490,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> VerifyListSubscription(VerifyListSubscriptionOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> VerifyListSubscriptionAsync(VerifyListSubscriptionOptions options)
 		{
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
@@ -1658,7 +1506,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> UnfollowList(UnfollowListOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> UnfollowListAsync(UnfollowListOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1670,7 +1518,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> VerifyListMembership(VerifyListMembershipOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> VerifyListMembershipAsync(VerifyListMembershipOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1686,7 +1534,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListMembers(ListListMembersOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterUser>>> ListListMembersAsync(ListListMembersOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1701,7 +1549,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> AddListMember(AddListMemberOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> AddListMemberAsync(AddListMemberOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1715,7 +1563,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterList>> DeleteList(DeleteListOptions options)
+		public virtual Task<TwitterResponse<TwitterList>> DeleteListAsync(DeleteListOptions options)
 		{
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
@@ -1727,7 +1575,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterList>> CreateList(CreateListOptions options)
+		public virtual Task<TwitterResponse<TwitterList>> CreateListAsync(CreateListOptions options)
 		{
 			var list_owner = options.ListOwner;
 			var name = options.Name;
@@ -1739,7 +1587,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterList>> GetList(GetListOptions options)
+		public virtual Task<TwitterResponse<TwitterList>> GetListAsync(GetListOptions options)
 		{
 			var list_id = options.ListId;
 			var slug = options.Slug;
@@ -1751,7 +1599,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListSubscriptions(ListSubscriptionsOptions options)
+		public virtual Task<TwitterResponse<TwitterCursorList<TwitterList>>> ListSubscriptionsAsync(ListSubscriptionsOptions options)
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
@@ -1763,7 +1611,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterSavedSearch>>> ListSavedSearches()
+		public virtual Task<TwitterResponse<IEnumerable<TwitterSavedSearch>>> ListSavedSearchesAsync()
 		{
 				
 			
@@ -1771,7 +1619,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterSavedSearch>> GetSavedSearch(GetSavedSearchOptions options)
+		public virtual Task<TwitterResponse<TwitterSavedSearch>> GetSavedSearchAsync(GetSavedSearchOptions options)
 		{
 			var id = options.Id;
 				
@@ -1780,7 +1628,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterSavedSearch>> CreateSavedSearch(CreateSavedSearchOptions options)
+		public virtual Task<TwitterResponse<TwitterSavedSearch>> CreateSavedSearchAsync(CreateSavedSearchOptions options)
 		{
 			var query = options.Query;
 				
@@ -1789,7 +1637,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterSavedSearch>> DeleteSavedSearch(DeleteSavedSearchOptions options)
+		public virtual Task<TwitterResponse<TwitterSavedSearch>> DeleteSavedSearchAsync(DeleteSavedSearchOptions options)
 		{
 			var id = options.Id;
 				
@@ -1798,7 +1646,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterPlace>> GetPlace(GetPlaceOptions options)
+		public virtual Task<TwitterResponse<TwitterPlace>> GetPlaceAsync(GetPlaceOptions options)
 		{
 			var place_id = options.PlaceId;
 				
@@ -1807,7 +1655,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterPlace>>> ReverseGeocode(ReverseGeocodeOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterPlace>>> ReverseGeocodeAsync(ReverseGeocodeOptions options)
 		{
 			var lat = options.Lat;
 			var @long = options.@Long;
@@ -1821,7 +1669,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<TwitterPlace>>> GeoSearch(GeoSearchOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<TwitterPlace>>> GeoSearchAsync(GeoSearchOptions options)
 		{
 			var lat = options.Lat;
 			var @long = options.@Long;
@@ -1838,7 +1686,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterTrends>> ListLocalTrendsFor(ListLocalTrendsForOptions options)
+		public virtual Task<TwitterResponse<TwitterTrends>> ListLocalTrendsForAsync(ListLocalTrendsForOptions options)
 		{
 			var id = options.Id;
 			var exclude = options.Exclude;
@@ -1848,7 +1696,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListAvailableTrendsLocations()
+		public virtual Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListAvailableTrendsLocationsAsync()
 		{
 				
 			
@@ -1856,7 +1704,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListClosestTrendsLocations(ListClosestTrendsLocationsOptions options)
+		public virtual Task<TwitterResponse<IEnumerable<WhereOnEarthLocation>>> ListClosestTrendsLocationsAsync(ListClosestTrendsLocationsOptions options)
 		{
 			var lat = options.Lat;
 			var @long = options.@Long;
@@ -1866,7 +1714,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterRateLimitStatusSummary>> GetRateLimitStatus(GetRateLimitStatusOptions options)
+		public virtual Task<TwitterResponse<TwitterRateLimitStatusSummary>> GetRateLimitStatusAsync(GetRateLimitStatusOptions options)
 		{
 			var resources = options.Resources;
 				
@@ -1875,7 +1723,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual Task<TwitterResponse<TwitterUser>> ReportSpam(ReportSpamOptions options)
+		public virtual Task<TwitterResponse<TwitterUser>> ReportSpamAsync(ReportSpamOptions options)
 		{
 			var screen_name = options.ScreenName;
 			var user_id = options.UserId;
