@@ -11,19 +11,21 @@ namespace TweetSharp.Tests.Service
     public partial class TwitterServiceTests
     {
         [Test]
-        public void Can_support_secure_urls_in_entitities()
+        public async void Can_support_secure_urls_in_entitities()
         {
             var service = GetAuthenticatedService();
-            var tweet = service.GetTweet(new GetTweetOptions { Id = 131501393033961472});
+            var response = await service.GetTweetAsync(new GetTweetOptions { Id = 131501393033961472 });
+            var tweet = response.Content;
             Console.WriteLine(tweet.RawSource);
         }
 
         [Test]
-        public void Can_get_media_links_from_entities()
+        public async void Can_get_media_links_from_entities()
         {
             var service = GetAuthenticatedService();
 
-            var tweet = service.GetTweet(new GetTweetOptions { Id = 128818112387756032 });
+            var response = await service.GetTweetAsync(new GetTweetOptions { Id = 128818112387756032 });
+            var tweet = response.Content;
             Assert.IsNotNull(tweet.Entities);
             Assert.AreEqual(1, tweet.Entities.Media.Count);
 
@@ -46,12 +48,13 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_basic_place()
+        public async void Can_get_basic_place()
         {
             var service = GetAuthenticatedService();
 
             // Presidio
-            var place = service.GetPlace(new GetPlaceOptions { PlaceId = "df51dec6f4ee2b2c" });
+            var response = await service.GetPlaceAsync(new GetPlaceOptions { PlaceId = "df51dec6f4ee2b2c" });
+            var place = response.Content;
             Assert.IsNotNull(place);
             Assert.AreEqual("df51dec6f4ee2b2c", place.Id);
             Assert.AreEqual("Presidio", place.Name);
@@ -61,11 +64,12 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_reverse_geocode()
+        public async void Can_get_reverse_geocode()
         {
             var service = GetAuthenticatedService();
 
-            var places = service.ReverseGeocode(new ReverseGeocodeOptions { Lat = 45.42153, Long = -75.697193 }).ToList();
+            var response = await service.ReverseGeocodeAsync(new ReverseGeocodeOptions { Lat = 45.42153, Long = -75.697193 });
+            var places = response.Content.ToList();
             Assert.IsNotEmpty(places);
             Assert.AreEqual(4, places.Count);
 
@@ -89,12 +93,13 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_search_geo_by_lat_long()
+        public async void Can_search_geo_by_lat_long()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.GeoSearch(new GeoSearchOptions { Lat = 45.42153, Long = -75.697193}).ToList();
+            var response = await service.GeoSearchAsync(new GeoSearchOptions { Lat = 45.42153, Long = -75.697193 });
+            var places = response.Content.ToList();
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
@@ -102,12 +107,13 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_parse_hashtag_search_url()
+        public async void Can_parse_hashtag_search_url()
         {
             var service = GetAuthenticatedService();
 
             //https://twitter.com/PurinaONE/status/306126169743450112
-            var tweet = service.GetTweet(new GetTweetOptions() {Id = 306126169743450112});
+            var response = await service.GetTweetAsync(new GetTweetOptions() { Id = 306126169743450112 });
+            var tweet = response.Content;
 
             Assert.IsNotNull(tweet);
             Assert.IsNotNull(tweet.TextAsHtml);
@@ -115,12 +121,13 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_search_geo_by_ip()
+        public async void Can_search_geo_by_ip()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.GeoSearch(new GeoSearchOptions { Ip = "24.246.1.165" }).ToList();
+            var response = await service.GeoSearchAsync(new GeoSearchOptions { Ip = "24.246.1.165" });
+            var places = response.Content.ToList();
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
@@ -128,7 +135,7 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_geo_coordinates_from_specific_tweet()
+        public async void Can_get_geo_coordinates_from_specific_tweet()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
@@ -143,7 +150,8 @@ namespace TweetSharp.Tests.Service
                 }, 
              */
 
-            var last = service.GetTweet(new GetTweetOptions { Id = 133314374797492224 });
+            var response = await service.GetTweetAsync(new GetTweetOptions { Id = 133314374797492224 });
+            var last = response.Content;
             Assert.IsNotNull(last.Place);
             Assert.IsNotNull(last.Location);
             Assert.AreEqual("Point", last.Location.Type);
@@ -152,33 +160,35 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_parameterized_followers_of_lists()
+        public async void Can_get_parameterized_followers_of_lists()
         {
             const int maxIdsToGet = 100;
 
             var service = GetAuthenticatedService();
 
-            var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
-            
-            
+            var response = await service.ListFriendIdsOfAsync(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
+            var ids = response.Content;
+
+
             var subList = ids.Count > 100 ? ids.Take(maxIdsToGet) : ids;
 
-            var segment = service.ListUserProfilesFor(new ListUserProfilesForOptions { UserId = subList });
+            var response2 = await service.ListUserProfilesForAsync(new ListUserProfilesForOptions { UserId = subList });
+            var segment = response2.Content;
             if (segment == null)
             {
-                if(service.Response.StatusCode == HttpStatusCode.OK)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     throw new Exception("No results, but Twitter returned OK...");
                 }
-                Console.WriteLine("Twitter failed legitimately: {0} {1}", service.Response.StatusCode, service.Response.StatusDescription);
+                Console.WriteLine("Twitter failed legitimately: {0}", response2.StatusCode);
             }
-                
+
             Assert.AreEqual(subList.Count(), segment.Count());
         }
 
         [Test]
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
-        public void Can_get_updated_user_properties()
+        public async void Can_get_updated_user_properties()
         {
             //{"is_translator":false,
             //"geo_enabled":false,
@@ -208,7 +218,8 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var user = service.GetUserProfile(new GetUserProfileOptions());
+            var response = await service.GetUserProfileAsync(new GetUserProfileOptions());
+            var user = response.Content;
             Assert.AreEqual(false, user.FollowRequestSent);
             Assert.AreEqual(false, user.IsTranslator);
             Assert.AreEqual(false, user.ContributorsEnabled);
@@ -219,7 +230,7 @@ namespace TweetSharp.Tests.Service
 
         [Test]
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
-        public void Can_return_results_from_account_settings_endpoint()
+        public async void Can_return_results_from_account_settings_endpoint()
         {
             //{"protected":false,
             //"geo_enabled":false,
@@ -234,7 +245,7 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var account = service.GetAccountSettings();
+            var account = (await service.GetAccountSettingsAsync()).Content;
             Console.WriteLine(account.RawSource);
 
             Assert.AreEqual(false, account.IsProtected, "IsProtected");
@@ -257,21 +268,22 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_update_account_settings()
+        public async void Can_update_account_settings()
         {
             var service = GetAuthenticatedService();
 
-            TwitterAccount original = service.GetAccountSettings();
+            TwitterAccount original = (await service.GetAccountSettingsAsync()).Content;
             var state = !original.SleepTime.Enabled.Value;
 
             Trace.WriteLine("Sleep state was " + original.SleepTime.Enabled);
-            
-            var updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions { SleepTimeEnabled = state });
+
+            var response = await service.UpdateAccountSettingsAsync(new UpdateAccountSettingsOptions { SleepTimeEnabled = state });
+            var updated = response.Content;
             Assert.AreEqual(state, updated.SleepTime.Enabled, "Didn't update");
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
 
-            updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions() { SleepTimeEnabled = !state});
+            updated = (await service.UpdateAccountSettingsAsync(new UpdateAccountSettingsOptions() { SleepTimeEnabled = !state })).Content;
             Assert.AreEqual(!state, updated.SleepTime.Enabled, "Didn't update again");
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);

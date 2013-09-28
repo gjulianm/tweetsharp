@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
@@ -73,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwitterServiceTests.Client.cs" />
     <Compile Include="TwitterServiceTests.cs" />
-    <Compile Include="TwitterServiceTests.OAuth.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
