@@ -6,19 +6,13 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
-    /// <summary>
-    /// Represents a suggested user category from the Twitter API. 
-    /// </summary>
-    [Serializable]
-#endif
 #if !Smartphone && !NET20
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterUserSuggestions : PropertyChangedBase,
                                           IComparable<TwitterUserSuggestions>,
-                                          IEquatable<TwitterUserSuggestions>, 
+                                          IEquatable<TwitterUserSuggestions>,
                                           ITwitterModel
     {
         private string _name;
@@ -43,7 +37,7 @@ namespace TweetSharp
                 OnPropertyChanged("Name");
             }
         }
-        
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif
@@ -115,7 +109,7 @@ namespace TweetSharp
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof (TwitterUserSuggestions) && Equals((TwitterUserSuggestions) obj);
+            return obj.GetType() == typeof(TwitterUserSuggestions) && Equals((TwitterUserSuggestions)obj);
         }
 
         public override int GetHashCode()

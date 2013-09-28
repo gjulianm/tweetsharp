@@ -11,9 +11,7 @@ namespace TweetSharp
     //    "tzinfo_name": "America/Los_Angeles",
     //    "utc_offset": -28800
     //  }
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("{Name}")]

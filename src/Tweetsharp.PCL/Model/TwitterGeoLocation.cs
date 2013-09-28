@@ -8,31 +8,26 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("{Type}:{Coordinates.Latitude},{Coordinates.Longitude}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterGeoLocation : PropertyChangedBase,  
+    public class TwitterGeoLocation : PropertyChangedBase,
                                       IEquatable<TwitterGeoLocation>,
                                       ITwitterModel
     {
-#if !SILVERLIGHT
         /// <summary>
         /// The inner spatial coordinates for this location.
         /// </summary>
-        [Serializable]
-#endif
         public class GeoCoordinates
         {
             /// <summary>
             /// Gets or sets the latitude.
             /// </summary>
             /// <value>The latitude.</value>
-            public virtual double Latitude{ get; set; }
+            public virtual double Latitude { get; set; }
 
             /// <summary>
             /// Gets or sets the longitude.
@@ -85,7 +80,7 @@ namespace TweetSharp
                 var latitude = values.First();
                 var longitude = values.Skip(1).Take(1).Single();
 
-                return new GeoCoordinates {Latitude = latitude, Longitude = longitude};
+                return new GeoCoordinates { Latitude = latitude, Longitude = longitude };
             }
         }
 
@@ -106,7 +101,7 @@ namespace TweetSharp
                                    Longitude = longitude
                                };
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TwitterGeoLocation"/> struct.
         /// </summary>
@@ -122,7 +117,7 @@ namespace TweetSharp
         [JsonProperty("coordinates")]
         public virtual GeoCoordinates Coordinates
         {
-            get { return _coordinates;  }
+            get { return _coordinates; }
             set
             {
                 _coordinates = value;
@@ -137,10 +132,10 @@ namespace TweetSharp
         [JsonProperty("type")]
         public virtual string Type
         {
-            get { return _type;  }
+            get { return _type; }
             set
             {
-                _type = value; 
+                _type = value;
                 OnPropertyChanged("Type");
             }
         }
@@ -190,9 +185,9 @@ namespace TweetSharp
                 return false;
             }
 
-            return instance.GetType() == typeof (TwitterGeoLocation) && Equals((TwitterGeoLocation) instance);
+            return instance.GetType() == typeof(TwitterGeoLocation) && Equals((TwitterGeoLocation)instance);
         }
-        
+
         /// <summary>
         /// Implements the operator ==.
         /// </summary>
@@ -201,11 +196,11 @@ namespace TweetSharp
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(TwitterGeoLocation left, TwitterGeoLocation right)
         {
-            if ( ReferenceEquals(left,right))
+            if (ReferenceEquals(left, right))
             {
-                return true; 
+                return true;
             }
-            if ( ReferenceEquals(null, left))
+            if (ReferenceEquals(null, left))
             {
                 return false;
             }

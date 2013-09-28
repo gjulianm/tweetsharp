@@ -10,9 +10,7 @@ namespace TweetSharp
 {
     // https://dev.twitter.com/docs/tweet-entities
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -87,9 +85,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -122,9 +118,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("@{Value}")]
@@ -161,9 +155,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("@{ScreenName}")]
@@ -195,9 +187,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("#{Text}")]
@@ -222,9 +212,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("{MediaType}:{MediaUrl}")]
@@ -297,9 +285,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -363,9 +349,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif

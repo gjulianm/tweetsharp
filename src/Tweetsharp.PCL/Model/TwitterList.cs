@@ -19,14 +19,11 @@ namespace TweetSharp
      </list>     
      */
 
-#if !SILVERLIGHT
     /// <summary>
     /// Represents a user-curated list of Twitter members, 
     /// that other users can subscribe to and see the aggregated 
     /// list of member tweets in a dedicated timeline.
     /// </summary>
-    [Serializable]
-#endif
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -131,7 +128,7 @@ namespace TweetSharp
                 OnPropertyChanged("Description");
             }
         }
-        
+
 #if !Smartphone && !NET20
         /// <summary>
         /// Gets or sets the list URL slug.

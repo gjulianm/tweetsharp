@@ -5,13 +5,7 @@ using Newtonsoft.Json;
 
 namespace TweetSharp.Model
 {
-#if !SILVERLIGHT
-    /// <summary>
-    /// Represents a place type for a <see cref="WhereOnEarthLocation" /> in the Yahoo! WOE specification.
-    /// </summary>
-    /// <seealso>http://developer.yahoo.com/geo/geoplanet/"</seealso>
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif

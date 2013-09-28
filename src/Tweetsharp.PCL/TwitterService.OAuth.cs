@@ -21,9 +21,7 @@ namespace TweetSharp
 {
     public partial class TwitterService
     {
-#if !SILVERLIGHT
-        [Serializable]
-#endif
+
         private class FunctionArguments
         {
             public string ConsumerKey { get; set; }

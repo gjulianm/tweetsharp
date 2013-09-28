@@ -15,13 +15,6 @@ namespace TweetSharp
     //     "name":"Mexico",
     //     "country":"Mexico" }
 
-#if !SILVERLIGHT
-    /// <summary>
-    /// Represents a location in the Yahoo! WOE specification.
-    /// </summary>
-    /// <seealso>"http://developer.yahoo.com/geo/geoplanet/"</seealso>
-    [Serializable]
-#endif
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -29,7 +22,7 @@ namespace TweetSharp
     [DebuggerDisplay("{WoeId}: {Name}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class WhereOnEarthLocation : PropertyChangedBase, ITwitterModel 
+    public class WhereOnEarthLocation : PropertyChangedBase, ITwitterModel
     {
         private long _woeId;
         private string _url;

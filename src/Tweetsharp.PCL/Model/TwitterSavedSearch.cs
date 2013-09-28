@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using Hammock.Model;
 using Newtonsoft.Json;
+using Tweetsharp;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
-    /// <summary>
-    /// Represents a user's saved search query, for convenient re-querying of the Search API.
-    /// </summary>
-    [Serializable]
-#endif
-#if !Smartphone && !NET20
+
     [DataContract]
     [DebuggerDisplay("{Name}:'{Query}'")]
-#endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterSavedSearch : PropertyChangedBase,
                                       IComparable<TwitterSavedSearch>,

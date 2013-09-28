@@ -1,10 +1,7 @@
-using System;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterSearchResultType
     {
         Mixed,
@@ -12,9 +9,7 @@ namespace TweetSharp
         Popular
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterProfileImageSize
     {
         Bigger,
@@ -22,9 +17,7 @@ namespace TweetSharp
         Mini
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterEntityType
     {
         HashTag,
@@ -33,9 +26,7 @@ namespace TweetSharp
         Media
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterPlaceType
     {
         City,
@@ -45,18 +36,14 @@ namespace TweetSharp
         POI
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterMediaType
     {
         Photo
     }
 
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     public enum TwitterListMode
     {
         Public,

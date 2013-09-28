@@ -27,9 +27,7 @@ namespace TweetSharp
      * }
      */
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterFriendship : PropertyChangedBase, ITwitterModel
     {
@@ -76,9 +74,7 @@ namespace TweetSharp
     "screen_name": "twitter"
 }
 */
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
     [JsonObject(MemberSerialization.OptIn)]
     [DebuggerDisplay("{Name}:{string.Join(\",\", Connections)}")]
     public class TwitterFriendshipLookup : PropertyChangedBase, ITwitterModel

@@ -9,9 +9,7 @@ namespace TweetSharp
     /// <summary>
     /// Denotes a list of user friends in a user stream.
     /// </summary>
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -39,9 +37,7 @@ namespace TweetSharp
     /// <summary>
     /// Denotes a <see cref="TwitterStatus" /> in a user stream.
     /// </summary>
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -95,9 +91,7 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -155,9 +149,7 @@ namespace TweetSharp
     /// Denotes a stream event, resulting from a user action.
     /// The source is always the initiating user, the target is always the affected user.
     /// </summary>
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -177,9 +169,7 @@ namespace TweetSharp
     }
 
     // Denotes a status deleted on a timeline in a user stream.
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -190,9 +180,7 @@ namespace TweetSharp
     }
 
     // Denotes a status deleted on a timeline in a user stream.
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -224,9 +212,7 @@ namespace TweetSharp
     /// <summary>
     /// Denotes the end of a user stream
     /// </summary>
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -238,9 +224,7 @@ namespace TweetSharp
     /// <summary>
     /// Denotes content surfaced in a stream
     /// </summary>
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif

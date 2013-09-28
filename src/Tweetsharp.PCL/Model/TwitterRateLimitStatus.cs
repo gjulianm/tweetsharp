@@ -8,9 +8,7 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -33,9 +31,7 @@ namespace TweetSharp
         public virtual string RawSource { get; set; }
     }
 
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
 #endif
@@ -54,9 +50,7 @@ namespace TweetSharp
     }
 
     
-#if !SILVERLIGHT
-    [Serializable]
-#endif
+
 #if !Smartphone && !NET20
     [DataContract]
     [DebuggerDisplay("{RemainingHits} / {HourlyLimit} remaining.")]
