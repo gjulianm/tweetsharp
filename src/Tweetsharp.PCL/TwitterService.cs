@@ -42,6 +42,7 @@ namespace TweetSharp
         private string _consumerSecret;
         private string _token;
         private string _tokenSecret;
+        private JsonSerializer _serializer;
 
         public TwitterService(TwitterClientInfo info)
             : this()
@@ -111,6 +112,9 @@ namespace TweetSharp
 
             _noAuthClient.BaseAddress = new Uri(Authority + Version, UriKind.Absolute);
             OAuthUtility.ComputeHash = (key, buffer) => { using (var hmac = new HMACSHA1(key)) { return hmac.ComputeHash(buffer); } };
+
+            _serializer = new JsonSerializer();
+
             InitializeService();
         }
 
@@ -338,7 +342,14 @@ namespace TweetSharp
         {
             var response = await _client.SendAsync(request);
 
-            return new TwitterResponse<T>(response);
+            var twitterResponse = new TwitterResponse<T>(response);
+
+            if (response.IsSuccessStatusCode)
+                twitterResponse.Content = Deserialize<T>(twitterResponse.Response);
+            else
+                twitterResponse.Error = Deserialize<TwitterError>(twitterResponse.Response);
+
+            return twitterResponse;
         }
 
         private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)

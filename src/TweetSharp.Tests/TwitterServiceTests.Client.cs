@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
 {
@@ -225,7 +224,6 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual(false, user.ContributorsEnabled);
             Assert.IsTrue(user.ProfileBackgroundImageUrlHttps.StartsWith("https://"));
             Assert.IsTrue(user.ProfileImageUrlHttps.StartsWith("https://"));
-            Assert.AreEqual(false, user.IsDefaultProfile);
         }
 
         [Test]

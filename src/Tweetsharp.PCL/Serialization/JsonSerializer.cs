@@ -13,21 +13,8 @@ namespace TweetSharp
 {
     internal class JsonSerializer : SerializerBase
     {
-        public override T Deserialize<T>(HttpResponseMessage response)
+        public override T Deserialize<T>(string content)
         {
-            if (response == null)
-            {
-                return default(T);
-            }
-            if ((int)response.StatusCode >= 500)
-            {
-                return default(T);
-            }
-
-            var stringTask = response.Content.ReadAsStringAsync();
-            stringTask.RunSynchronously();
-            var content = stringTask.Result;
-
             if (content.Equals("END STREAMING"))
             {
                 return (T)(ITwitterModel)new TwitterUserStreamEnd();
@@ -425,7 +412,7 @@ namespace TweetSharp
         public override object Deserialize(HttpResponseMessage response, Type type)
         {
             var stringTask = response.Content.ReadAsStringAsync();
-            stringTask.RunSynchronously(); //Ugh.
+            stringTask.Wait(); //Ugh.
             var contents = stringTask.Result;
             return DeserializeJson(contents, type);
         }

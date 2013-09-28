@@ -48,7 +48,7 @@ namespace TweetSharp
             }
         }
 
-        public abstract T Deserialize<T>(HttpResponseMessage response);
+        public abstract T Deserialize<T>(string content);
 
         public abstract object Deserialize(HttpResponseMessage response, Type type);
 

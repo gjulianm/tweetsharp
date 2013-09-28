@@ -25,7 +25,7 @@ namespace TweetSharp
                 Headers.Add(header.Key, header.Value);
 
             var stringReadTask = _response.Content.ReadAsStringAsync();
-            stringReadTask.RunSynchronously();
+            stringReadTask.Wait();
 
             Response = stringReadTask.Result; // I don't like it, but it doesn't break how things work.
         }
@@ -49,9 +49,17 @@ namespace TweetSharp
             X-Rate-Limit-Reset: 1360991702
             */
 
-            string limit = Headers["X-Rate-Limit-Limit"];
-            string remaining = Headers["X-Rate-Limit-Remaining"];
-            string reset = Headers["X-Rate-Limit-Reset"];
+            string limit = null;
+            if (!Headers.TryGetValue("X-Rate-Limit-Limit", out limit))
+                Headers.TryGetValue("x-rate-limit-limit", out limit);
+
+            string remaining = null;
+            if (!Headers.TryGetValue("X-Rate-Limit-Remaining", out remaining))
+                Headers.TryGetValue("x-rate-limit-remaining", out remaining);
+
+            string reset = null;
+            if (!Headers.TryGetValue("X-Rate-Limit-Reset", out reset))
+                Headers.TryGetValue("x-rate-limit-reset", out reset);
 
             limit = IsStringANumber(!string.IsNullOrEmpty(limit) ? limit.Trim() : "-1") ? limit : "-1";
             remaining = IsStringANumber(!string.IsNullOrEmpty(remaining) ? remaining.Trim() : "-1") ? remaining : "-1";

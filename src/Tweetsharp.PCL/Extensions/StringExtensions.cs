@@ -190,7 +190,7 @@ namespace TweetSharp
                 var tag = entity as TwitterHashTag;
                 if (tag != null)
                 {
-                    value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/search?q={0}\" target=\"_blank\">#{1}</a>", new object[] { Uri.EscapeDataString(tag.Text), tag.Text });
+                    value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/search?q=%23{0}\" target=\"_blank\">#{1}</a>", new object[] { Uri.EscapeDataString(tag.Text), tag.Text });
                     list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
                 }
                 var url = entity as TwitterUrl;
