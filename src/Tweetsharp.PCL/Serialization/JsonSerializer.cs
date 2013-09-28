@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace TweetSharp
 {
     internal class JsonSerializer : SerializerBase
     {
-        public override T Deserialize<T>(RestResponseBase response)
+        public override T Deserialize<T>(HttpResponseMessage response)
         {
             if (response == null)
             {
@@ -24,7 +24,9 @@ namespace TweetSharp
                 return default(T);
             }
 
-            var content = response.Content;
+            var stringTask = response.Content.ReadAsStringAsync();
+            stringTask.RunSynchronously();
+            var content = stringTask.Result;
 
             if (content.Equals("END STREAMING"))
             {
@@ -420,9 +422,12 @@ namespace TweetSharp
             return type;
         }
 
-        public override object Deserialize(RestResponseBase response, Type type)
+        public override object Deserialize(HttpResponseMessage response, Type type)
         {
-            return DeserializeJson(response.Content, type);
+            var stringTask = response.Content.ReadAsStringAsync();
+            stringTask.RunSynchronously(); //Ugh.
+            var contents = stringTask.Result;
+            return DeserializeJson(contents, type);
         }
 
         public object Deserialize(string content, Type type)

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Net.Http;
 using TweetSharp.Serialization;
-using Tweetsharp.PCL;
 
 namespace TweetSharp
 {
-    public abstract class SerializerBase : ISerializer, IDeserializer
+    public abstract class SerializerBase
     {
         private readonly Newtonsoft.Json.JsonSerializer _serializer;
 
@@ -48,9 +48,9 @@ namespace TweetSharp
             }
         }
 
-        public abstract T Deserialize<T>(RestResponseBase response);
+        public abstract T Deserialize<T>(HttpResponseMessage response);
 
-        public abstract object Deserialize(RestResponseBase response, Type type);
+        public abstract object Deserialize(HttpResponseMessage response, Type type);
 
         public virtual object DeserializeJson(string content, Type type)
         {

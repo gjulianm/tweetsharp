@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Tweetsharp.PCL;
+using Tweetsharp;
 
 namespace TweetSharp
 {

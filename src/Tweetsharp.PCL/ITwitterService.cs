@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Net.Http;
-using Tweetsharp.PCL;
 
 namespace TweetSharp
 {
@@ -24,8 +23,6 @@ namespace TweetSharp
         OAuthAccessToken GetAccessToken(OAuthRequestToken requestToken, string verifier);
         string GetEchoRequest(string url);
         HttpRequestMessage PrepareEchoRequest(string realm = "http://api.twitter.com");
-        IDeserializer Deserializer { get; set; }
-        ISerializer Serializer { get; set; }
         T Deserialize<T>(ITwitterModel model) where T : ITwitterModel;
         T Deserialize<T>(string content);
         void CancelStreaming();
