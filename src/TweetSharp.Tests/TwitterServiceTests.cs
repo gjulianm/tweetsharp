@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AsyncOAuth;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +31,12 @@ namespace TweetSharp.Tests.Service
             _consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
             _accessToken = ConfigurationManager.AppSettings["AccessToken"];
             _accessTokenSecret = ConfigurationManager.AppSettings["AccessTokenSecret"];
+        }
+
+        [TestFixtureSetUp]
+        public static void Setup()
+        {
+            OAuthUtility.ComputeHash = (key, buffer) => { using (var hmac = new HMACSHA1(key)) { return hmac.ComputeHash(buffer); } };
         }
 
         [Test]
