@@ -7,6 +7,10 @@
 **_If someone forks this project and proves active and interested ongoing development, I will transfer this repo to them._**
 **_Forks must respect OSS and copyright law with respect to attribution, etc., etc._**
 
+#### Tweetsharp PCL
+
+As this project wasn't being actively developed, I forked it and migrated to the Portable Class Library. This breaks compatibility with old methods (only async-type methods are supported now) and some OAuth functions disappear. The advantage is that now Tweetsharp depends on HttpClient instead of Hammock (which is not actively developed either) and can be used from more projects than before with less problems. - _Guillermo Julián_.
+
 #### Addressing issues with deserialization 
 In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
 infinite recursion state that causes a StackOverflowException. The ability to reproduce this comes and goes, as it's mainly 
