@@ -131,7 +131,6 @@
   <ItemGroup>
     <Content Include="assembly.ico" />
     <Content Include="Endpoints\_TwitterService.1.Timelines.json" />
-    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Endpoints\_TwitterService.10.Lists.json" />
