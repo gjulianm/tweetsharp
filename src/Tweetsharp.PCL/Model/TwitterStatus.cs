@@ -472,5 +472,78 @@ namespace TweetSharp
         {
             return !Equals(left, right);
         }
+
+
+        private string cleanText;
+        public string CleanText
+        {
+            get
+            {
+                if (RetweetedStatus != null)
+                    return RetweetedStatus.CleanText;
+
+                if (cleanText != null)
+                    return cleanText;
+
+                string TweetText = Text;
+                string ReturnText = "";
+                string PreviousText;
+                int i = 0;
+
+                foreach (var Entity in Entities)
+                {
+                    if (Entity.StartIndex > i)
+                    {
+                        PreviousText = TweetText.Substring(i, Entity.StartIndex - i);
+                        ReturnText += WebUtility.HtmlDecode(PreviousText);
+                    }
+
+                    i = Entity.EndIndex;
+
+                    switch (Entity.EntityType)
+                    {
+                        case TwitterEntityType.HashTag:
+                            ReturnText += "#" + ((TwitterHashTag)Entity).Text;
+                            break;
+
+                        case TwitterEntityType.Mention:
+                            ReturnText += "@" + ((TwitterMention)Entity).ScreenName;
+                            break;
+
+                        case TwitterEntityType.Url:
+                            ReturnText += Utils.TrimUrl(((TwitterUrl)Entity).ExpandedValue);
+                            break;
+                        case TwitterEntityType.Media:
+                            ReturnText += ((TwitterMedia)Entity).DisplayUrl;
+                            break;
+                    }
+                }
+
+                if (i < TweetText.Length)
+                    ReturnText += WebUtility.HtmlDecode(TweetText.Substring(i));
+
+                cleanText = ReturnText;
+                return ReturnText;
+            }
+        }
+
+        public virtual string AuthorName
+        {
+            get
+            {
+                if (RetweetedStatus != null)
+                    return RetweetedStatus.Author.ScreenName;
+                else
+                    return Author.ScreenName;
+            }
+        }
+
+        public bool IsRetweeted
+        {
+            get
+            {
+                return RetweetedStatus != null;
+            }
+        }
     }
 }

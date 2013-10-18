@@ -10,6 +10,9 @@ namespace TweetSharp
         ITweeter Author { get; }
         DateTime CreatedDate { get; }
         TwitterEntities Entities { get; }
+        string CleanText { get; }
+        bool IsRetweeted { get; }
+        string AuthorName { get; }
     }
 
     public interface ITweeter : ITwitterModel

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tweetsharp;
+using PCLWebUtility;
 
 namespace TweetSharp
 {
@@ -326,5 +327,65 @@ namespace TweetSharp
         [DataMember]
 #endif
         public virtual string RawSource { get; set; }
+
+        private string cleanText;
+        public string CleanText
+        {
+            get
+            {
+                if (cleanText != null)
+                    return cleanText;
+
+                string TweetText = Text;
+                string ReturnText = "";
+                string PreviousText;
+                int i = 0;
+
+                foreach (var Entity in Entities)
+                {
+                    if (Entity.StartIndex > i)
+                    {
+                        PreviousText = TweetText.Substring(i, Entity.StartIndex - i);
+                        ReturnText += WebUtility.HtmlDecode(PreviousText);
+                    }
+
+                    i = Entity.EndIndex;
+
+                    switch (Entity.EntityType)
+                    {
+                        case TwitterEntityType.HashTag:
+                            ReturnText += "#" + ((TwitterHashTag)Entity).Text;
+                            break;
+
+                        case TwitterEntityType.Mention:
+                            ReturnText += "@" + ((TwitterMention)Entity).ScreenName;
+                            break;
+
+                        case TwitterEntityType.Url:
+                            ReturnText += Utils.TrimUrl(((TwitterUrl)Entity).Value);
+                            break;
+                        case TwitterEntityType.Media:
+                            ReturnText += ((TwitterMedia)Entity).DisplayUrl;
+                            break;
+                    }
+                }
+
+                if (i < TweetText.Length)
+                    ReturnText += WebUtility.HtmlDecode(TweetText.Substring(i));
+
+                cleanText = ReturnText;
+                return ReturnText;
+            }
+        }
+
+        public string AuthorName
+        {
+            get
+            {
+                return SenderScreenName;
+            }
+        }
+
+        public bool IsRetweeted { get { return false; } }
     }
 }
