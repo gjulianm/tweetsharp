@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace TweetSharp
 {
-    public class TwitterResponse<T>
+    public class TwitterResponse
     {
         private readonly HttpResponseMessage _response;
         private readonly Exception _exception;
@@ -103,11 +103,27 @@ namespace TweetSharp
 
         public virtual Exception InnerException { get; private set; }
 
+
+        public virtual bool RequestSucceeded
+        {
+            get { return _response.IsSuccessStatusCode; }
+        }
+    }
+
+    public class TwitterResponse<T> : TwitterResponse
+    {
+        internal TwitterResponse(HttpResponseMessage response, Exception exception = null) : base(response, exception)
+        {
+        }
+
         public T Content { get; set; }
 
-        public bool RequestSucceeded
+        public override bool RequestSucceeded
         {
-            get { return _response.IsSuccessStatusCode && Content != null; }
+            get
+            {
+                return base.RequestSucceeded && Content != null;
+            }
         }
     }
 }
