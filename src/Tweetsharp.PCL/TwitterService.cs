@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -346,7 +347,8 @@ namespace TweetSharp
             }
             catch (Exception e)
             {
-                e.ToString();
+                Debug.WriteLine("Error executing request: {0}", e);
+                throw;
             }
 
             var twitterResponse = new TwitterResponse<T>(response);
