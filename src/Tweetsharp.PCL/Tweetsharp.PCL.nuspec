@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Daniel Crenna and Jason Diller / Guillermo Julián</authors>
+		<owners>Guillermo Julián</owners>
+		<description>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy.</description>
+		<summary>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy.</summary>
+		<language>en-US</language>
+		<projectUrl>http://github.com/gjulianm/tweetsharp</projectUrl>
+		<licenseUrl>https://github.com/gjulianm/tweetsharp/blob/master/LICENSE</licenseUrl>
+		<tags>twitter tweetsharp web api http rest wrapper json pcl</tags>
+        <releaseNotes>PCL support. Deprecating every other release.</releaseNotes>
+  </metadata>
+</package>
