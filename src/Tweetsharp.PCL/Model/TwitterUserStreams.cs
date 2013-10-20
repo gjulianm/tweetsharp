@@ -60,6 +60,21 @@ namespace TweetSharp
             }
         }
 
+        public string AuthorName
+        {
+            get { return Status.AuthorName; }
+        }
+
+        public bool IsRetweeted
+        {
+            get { return Status.IsRetweeted; }
+        }
+
+        public string CleanText
+        {
+            get { return Status.CleanText; }
+        }
+
         public long Id
         {
             get { return Status.Id; }
@@ -112,6 +127,21 @@ namespace TweetSharp
                 _dm = value;
                 OnPropertyChanged("DirectMessage");
             }
+        }
+
+        public string AuthorName
+        {
+            get { return DirectMessage.AuthorName; }
+        }
+
+        public bool IsRetweeted
+        {
+            get { return DirectMessage.IsRetweeted; }
+        }
+
+        public string CleanText
+        {
+            get { return DirectMessage.CleanText; }
         }
 
         public long Id
