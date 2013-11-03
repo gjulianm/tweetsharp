@@ -1,34 +1,34 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace TweetSharp
 {
     // https://dev.twitter.com/docs/tweet-entities
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterEntities : IEnumerable<TwitterEntity>
+    public class TwitterEntities : IEnumerable<TwitterEntity>, ICollection
     {
         [JsonProperty("user_mentions")]
 #if !Smartphone && !NET20
         [DataMember]
 #endif
         public virtual IList<TwitterMention> Mentions { get; set; }
-        
+
         [JsonProperty("hashtags")]
 #if !Smartphone && !NET20
         [DataMember]
 #endif
         public virtual IList<TwitterHashTag> HashTags { get; set; }
-      
+
         [JsonProperty("urls")]
 #if !Smartphone && !NET20
         [DataMember]
@@ -58,10 +58,10 @@ namespace TweetSharp
         {
 #if !WINDOWS_PHONE
             var entities = new List<TwitterEntity>(Mentions.Count() + HashTags.Count() + Urls.Count() + Media.Count());
-            entities.AddRange((IEnumerable<TwitterEntity>) Mentions);
-            entities.AddRange((IEnumerable<TwitterEntity>) HashTags);
-            entities.AddRange((IEnumerable<TwitterEntity>) Urls);
-            entities.AddRange((IEnumerable<TwitterEntity>) Media);
+            entities.AddRange((IEnumerable<TwitterEntity>)Mentions);
+            entities.AddRange((IEnumerable<TwitterEntity>)HashTags);
+            entities.AddRange((IEnumerable<TwitterEntity>)Urls);
+            entities.AddRange((IEnumerable<TwitterEntity>)Media);
             entities.Sort();
 #else
             var entities = new List<TwitterEntity>(Mentions.Count() + HashTags.Count() + Urls.Count() + Media.Count());
@@ -83,10 +83,35 @@ namespace TweetSharp
         {
             return GetEnumerator();
         }
+        
+        public int Count
+        {
+            get { return Mentions.Count + Urls.Count + Media.Count + HashTags.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            this.ToArray().CopyTo(array, index);
+        }
+
+        public bool IsSynchronized
+        {
+            get { return false; }
+        }
+
+        public object SyncRoot
+        {
+            get { return this; }
+        }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -103,7 +128,7 @@ namespace TweetSharp
 #endif
         public virtual TwitterEntityType EntityType { get; protected set; }
 
-        public virtual int StartIndex { get { return Indices.Count > 0 ? Indices[0] : -1; }}
+        public virtual int StartIndex { get { return Indices.Count > 0 ? Indices[0] : -1; } }
 
         public virtual int EndIndex { get { return Indices.Count > 1 ? Indices[1] : -1; } }
 
@@ -118,8 +143,8 @@ namespace TweetSharp
         }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
     [DebuggerDisplay("@{Value}")]
 #endif
@@ -155,8 +180,8 @@ namespace TweetSharp
         }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
     [DebuggerDisplay("@{ScreenName}")]
 #endif
@@ -187,8 +212,8 @@ namespace TweetSharp
         }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
     [DebuggerDisplay("#{Text}")]
 #endif
@@ -212,8 +237,8 @@ namespace TweetSharp
         }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
     [DebuggerDisplay("{MediaType}:{MediaUrl}")]
 #endif
@@ -272,7 +297,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
         [DataMember]
 #endif
-        public virtual TwitterMediaSizes Sizes { get; set; } 
+        public virtual TwitterMediaSizes Sizes { get; set; }
 
         public TwitterMedia()
         {
@@ -285,12 +310,12 @@ namespace TweetSharp
         }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterMediaSizes : IEnumerable<TwitterMediaSize>
+    public class TwitterMediaSizes : IEnumerable<TwitterMediaSize>, ICollection
     {
         [JsonProperty("thumb")]
 #if !Smartphone && !NET20
@@ -324,19 +349,19 @@ namespace TweetSharp
         private IEnumerable<TwitterMediaSize> Coalesce()
         {
             var sizes = new List<TwitterMediaSize>();
-            if(Thumb != null)
+            if (Thumb != null)
             {
                 sizes.Add(Thumb);
             }
-            if(Small != null)
+            if (Small != null)
             {
                 sizes.Add(Small);
             }
-            if(Medium != null)
+            if (Medium != null)
             {
                 sizes.Add(Medium);
             }
-            if(Large != null)
+            if (Large != null)
             {
                 sizes.Add(Large);
             }
@@ -347,10 +372,30 @@ namespace TweetSharp
         {
             return GetEnumerator();
         }
+
+        public void CopyTo(Array array, int index)
+        {
+            this.ToArray().CopyTo(array, index);
+        }
+
+        public int Count
+        {
+            get { return Coalesce().Count(); }
+        }
+
+        public bool IsSynchronized
+        {
+            get { return false; }
+        }
+
+        public object SyncRoot
+        {
+            get { return this; }
+        }
     }
 
-
 #if !Smartphone && !NET20
+
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
