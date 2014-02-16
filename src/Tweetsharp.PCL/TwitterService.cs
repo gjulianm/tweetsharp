@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -316,13 +317,71 @@ namespace TweetSharp
             return await ExecuteRequestImpl<T>(request);
         }
 
+
+
+        private byte[] ReadStreamContents(Stream stream)
+        {
+            int length = (int)stream.Length;
+            byte[] contents = new byte[length];
+
+            if (stream.CanSeek)
+                stream.Seek(0, SeekOrigin.Begin);
+
+            stream.Read(contents, 0, length);
+
+            return contents;
+        }
+
+        /// <summary>
+        /// Creates a HttpContent object for the given file.
+        /// </summary>
+        /// <param name="file">File.</param>
+        /// <returns>HttpContent wrapping the file contents.</returns>
+        protected virtual HttpContent CreateFileContentFor(string name, Stream file)
+        {
+            var fileContent = new ByteArrayContent(ReadStreamContents(file));
+            fileContent.Headers.ContentType = GetContentTypeFor(name);
+
+            return fileContent;
+        }
+
+        /// <summary>
+        /// Returns a content type based on the file name
+        /// </summary>
+        /// <param name="filename">File name.</param>
+        /// <returns>Media type.</returns>
+        protected virtual MediaTypeHeaderValue GetContentTypeFor(string filename)
+        {
+            var extension = filename.Split('.').Last();
+
+            //TODO: Complete.
+            switch (extension)
+            {
+                case "png":
+                    return MediaTypeHeaderValue.Parse("image/png");
+                case "jpg":
+                    return MediaTypeHeaderValue.Parse("image/jpeg");
+                default:
+                    return MediaTypeHeaderValue.Parse("text/plain");
+
+            }
+        }
+
         private async Task<TwitterResponse<T>> ExecuteRequest<T>(HttpMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareQuery(url);
             request.Method = method;
 
-            // TODO: File uploads.
+            var content = new MultipartFormDataContent();
+        
+            foreach (var file in files)
+            {
+                var fileContent = CreateFileContentFor(file.Key, file.Value);
+                content.Add(fileContent, "media[]", file.Key);
+            }
+
+            request.Content = content;
 
             return await ExecuteRequestImpl<T>(request);
         }

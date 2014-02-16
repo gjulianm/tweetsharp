@@ -305,5 +305,6 @@ namespace TweetSharp.Tests.Service
             Assert.False(response.RequestSucceeded);
             Assert.LessOrEqual(response.RateLimitStatus.RemainingHits, 0);
         }
+
     }
 }
