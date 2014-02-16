@@ -165,9 +165,10 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var response = await service.ListFriendIdsOfAsync(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
+            var response = await service.ListFriendIdsOfAsync(new ListFriendIdsOfOptions { ScreenName = "gjulianm" });
             var ids = response.Content;
 
+            Assert.True(response.RequestSucceeded);
 
             var subList = ids.Count > 100 ? ids.Take(maxIdsToGet) : ids;
 
@@ -285,6 +286,24 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual(!state, updated.SleepTime.Enabled, "Didn't update again");
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
+        }
+
+        [Test]
+        [Ignore("Heavy load on Twitter's end.")]
+        public async void Can_detect_rate_limits()
+        {
+            var service = GetAuthenticatedService();
+            int maxHits = 15;
+
+            for (int i = 0; i < maxHits ; i++)
+            {
+                var r = await service.ListBlockedUserIdsAsync(new ListBlockedUserIdsOptions());
+                Assert.LessOrEqual(r.RateLimitStatus.RemainingHits, maxHits - i - 1);
+            }
+
+            var response = await service.ListBlockedUserIdsAsync(new ListBlockedUserIdsOptions());
+            Assert.False(response.RequestSucceeded);
+            Assert.LessOrEqual(response.RateLimitStatus.RemainingHits, 0);
         }
     }
 }
