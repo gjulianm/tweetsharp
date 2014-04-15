@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PCLWebUtility</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>WebUtility for Portable Class Library</title>
     <authors>Petar Paar</authors>
     <owners>Petar Paar</owners>

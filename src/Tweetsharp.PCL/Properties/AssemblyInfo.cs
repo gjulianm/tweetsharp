@@ -25,7 +25,7 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.3.*")]
-[assembly: AssemblyFileVersion("3.0.3.0")]
+[assembly: AssemblyVersion("3.0.4.*")]
+[assembly: AssemblyFileVersion("3.0.4.0")]
 [assembly: InternalsVisibleTo("Tweetsharp.Tests")]
-[assembly: AssemblyInformationalVersion("3.0.3-alpha")]
+[assembly: AssemblyInformationalVersion("3.0.4-alpha")]
