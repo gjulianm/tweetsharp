@@ -75,6 +75,26 @@ namespace TweetSharp
             }
         }
 
+
+        [JsonProperty("favorite_count")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual int FavoriteCount
+        {
+            get { return _favoriteCount; }
+            set
+            {
+                if (_favoriteCount == value)
+                {
+                    return;
+                }
+
+                _favoriteCount = value;
+                OnPropertyChanged("FavoriteCount");
+            }
+        }
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif
@@ -475,6 +495,7 @@ namespace TweetSharp
 
 
         private string cleanText;
+        private int _favoriteCount;
         public string CleanText
         {
             get

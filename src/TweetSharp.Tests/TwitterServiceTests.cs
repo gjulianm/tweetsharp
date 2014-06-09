@@ -392,6 +392,18 @@ namespace TweetSharp.Tests.Service
             }
         }
 
+        [Test]
+        public async void Can_get_favorite_count()
+        {
+            var service = GetAuthenticatedService();
+            var response = await service.GetTweetAsync(new GetTweetOptions { Id = 1770013181 });
+            var tweet = response.Content;
+
+            Assert.IsTrue(response.RequestSucceeded);
+            Assert.IsTrue(tweet.FavoriteCount > 90000, "Either this doesn't work or Justin Bieber is not loved anymore.");
+            Debug.WriteLine(tweet.FavoriteCount);
+        }
+
 
 
         [Test]
