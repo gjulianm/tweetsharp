@@ -374,7 +374,7 @@ namespace TweetSharp
             request.Method = method;
 
             var content = new MultipartFormDataContent();
-        
+
             foreach (var file in files)
             {
                 var fileContent = CreateFileContentFor(file.Key, file.Value);
