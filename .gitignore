@@ -47,3 +47,4 @@ src/net40/TweetSharp.Next.Tests/bin/Release
 !packages/repositories.config
 !src/packages/repositories.config
 *.nupkg
+src/packages/
